@@ -1,6 +1,6 @@
 import interactions, os
 
-client  = interactions.Client(token='OTUzODI4MjIyODkyNjcwOTg3.YjKPwQ.XfjivH8rQvPABCoypJMFOnAG9W4')
+client  = interactions.Client(token='TOKEN')
 
 
 # def load_extension(extension):
