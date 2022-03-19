@@ -1,6 +1,6 @@
 import interactions, os
 
-client  = interactions.Client(token='TOKEN')
+client  = interactions.Client(token='OTUzODI4MjIyODkyNjcwOTg3.YjKPwQ.XfjivH8rQvPABCoypJMFOnAG9W4')
 
 
 # def load_extension(extension):
@@ -23,11 +23,11 @@ async def _bot_latency(ctx):
             text="The WS Latency & Connection Latency for Aurora.",
             icon_url="https://media.discordapp.net/attachments/831369746855362590/954622807302615050/Aurora_Big.png?width=747&height=747",
         ),
-        # thumbnail=interactions.EmbedImageStruct(
-        #     url="https://c.tenor.com/2bvE7aaOf6wAAAAC/discord-ping.gif",
-        #     height=300,
-        #     width=250,
-        # ),
+        thumbnail=interactions.EmbedImageStruct(
+            url="https://c.tenor.com/2bvE7aaOf6wAAAAC/discord-ping.gif",
+            #height=300,
+            #width=250,
+        )._json,
         author=interactions.EmbedAuthor(
             name="AalbatrossGuy#5129",
             icon_url="https://media.discordapp.net/attachments/831369746855362590/898903606319800340/IMG_20211009_172918_418.jpg",
