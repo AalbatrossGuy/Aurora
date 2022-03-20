@@ -1,5 +1,24 @@
-# Bot token
 {
- "Token":"Your Bot Token",
- "Admin":"Your User ID"
+  "Aurora" : {
+    "TOKEN" : "OTUzODI4MjIyODkyNjcwOTg3.YjKPwQ.reTl8A7mtxtsq_E3BmIeR-Swzws",
+    "TEST_SERVER" : "903225083072495646",
+    "DEVELOPERS" : [
+      {
+        "DISCORD" : "AalbatrossGuy#5129",
+        "GITHUB" : "https://github.com/AalbatrossGuy"},
+      {
+        "DISCORD" : "Your Cat Neighbor#3521",
+        "GITHUB" : "https://github.com/Catto-YFCN"
+      }
+    ]
+  },
+
+  "METADATA" : {
+    "TAGS" : "Moderation, Fun, Information, Reddit, Utility, Music, Activities",
+    "GITHUB_REPOSITORY" : "https://github.com/AalbatrossGuy/Aurora",
+    "LANGUAGE" : "Python3",
+    "SHORT_DESCRIPTION" : "Aurora is a multipurpose bot made to make your everyday usage of Discord easier.",
+    "LONG_DESCRIPTION" : "N/A",
+    "LICENSE" : "MIT License Copyright (c) 2022 AalbatrossGuy"
+  }
 }
