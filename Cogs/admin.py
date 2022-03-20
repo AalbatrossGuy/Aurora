@@ -1,12 +1,33 @@
-import interactions, asyncio
+import interactions, asyncio, logging
 
 
+# LOG SETTINGS
+logger = logging.getLogger("auroralog")
+logger.setLevel(logging.INFO)
+LOG_FILE = 'logs/info.log'
+fileHandler = logging.FileHandler(LOG_FILE)
+fileHandler.setLevel(logging.INFO)
+LOG_FORMAT = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s", datefmt="%d-%b-%y %H:%M:%S")
+fileHandler.setFormatter(LOG_FORMAT)
+logger.addHandler(fileHandler)
+
+error_logger = logging.getLogger("error-logger")
+error_logger.setLevel(logging.DEBUG)
+ERROR_LOG_FILE = '././logs/errors.log'
+fileErrorHandler = logging.FileHandler(ERROR_LOG_FILE)
+fileErrorHandler.setLevel(logging.DEBUG)
+ERROR_LOG_FORMAT = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s", datefmt="%d-%b-%y %H:%M:%S")
+fileErrorHandler.setFormatter(ERROR_LOG_FORMAT)
+error_logger.addHandler(fileErrorHandler)
+
+
+# COMMANDS
 class Admin(interactions.Extension):
     def __init__(self, client):
         self.client = client
 
-    # Clear Command
 
+    # Clear Command
     @interactions.extension_command(
         name="clear",
         description="Clear messages in chat.",
@@ -21,14 +42,17 @@ class Admin(interactions.Extension):
      ],
     )
     async def _clear_messages(self, ctx, amount=10):
-        channel = await ctx.get_channel()
-        await channel.purge(amount=amount+1)
-        await ctx.send(f"Purged {amount} messages!")
-        await asyncio.sleep(2)
-        await ctx.message.delete()
+        try:
+            channel = await ctx.get_channel()
+            await channel.purge(amount=amount+1)
+            await ctx.send(f"Purged {amount} messages!")
+            await asyncio.sleep(2)
+            await ctx.message.delete()
+        except:
+            error_logger.error("Error occured while responding to /clear :-", exc_info=True)
+
 
     # Kick Command
-
     @interactions.extension_command(
         name="kick",
         description="Kicks a user from the server.",
@@ -49,17 +73,19 @@ class Admin(interactions.Extension):
         ],
     )
     async def _kick_member(self, ctx, member: interactions.Member, reason: str = "No reason provided."):
-        guild = await ctx.get_guild()
-        guild_id = guild.id
-        if ctx.author.permissions & interactions.Permissions.KICK_MEMBERS:
-            await member.kick(guild_id=guild_id, reason=reason)
-            await ctx.send(f"Successfully kicked {member.mention} for `{reason}`")
-        else:
-            await ctx.send("Oops! you don't have the required permission to run this command.")
+        try:
+            guild = await ctx.get_guild()
+            guild_id = guild.id
+            if ctx.author.permissions & interactions.Permissions.KICK_MEMBERS:
+                await member.kick(guild_id=guild_id, reason=reason)
+                await ctx.send(f"Successfully kicked {member.mention} for `{reason}`")
+            else:
+                await ctx.send("Oops! you don't have the required permission to run this command.")
+        except:
+            error_logger.error("Error occured while responding to /kick :-", exc_info=True)
 
 
     # Ban Command
-
     @interactions.extension_command(
         name="ban",
         description="Bans a user from the server.",
@@ -80,17 +106,19 @@ class Admin(interactions.Extension):
         ],
     )
     async def _ban_member(self, ctx, member: interactions.Member, reason: str = "No reason provided."):
-        guild = await ctx.get_guild()
-        guild_id = guild.id
-        if ctx.author.permissions & interactions.Permissions.BAN_MEMBERS:
-            await member.ban(guild_id=guild_id, reason=reason)
-            await ctx.send(f"Successfully Banned {member.mention} for `{reason}`")
-        else:
-            await ctx.send("Oops! you don't have the required permission to run this command.")
+        try:
+            guild = await ctx.get_guild()
+            guild_id = guild.id
+            if ctx.author.permissions & interactions.Permissions.BAN_MEMBERS:
+                await member.ban(guild_id=guild_id, reason=reason)
+                await ctx.send(f"Successfully Banned {member.mention} for `{reason}`")
+            else:
+                await ctx.send("Oops! you don't have the required permission to run this command.")
+        except:
+            error_logger.error("Error occured while responding to /ban :-", exc_info=True)
 
 
     # Unban Command
-
     @interactions.extension_command(
         name="unban",
         description="Unbans a user from the server.",
@@ -105,20 +133,23 @@ class Admin(interactions.Extension):
         ],
     )
     async def _unban_member(self, ctx, member_id: str) -> None:
-        member_id = int(member_id) if len(member_id) == 18 else 0
-        guild = await ctx.get_guild()
-        # print(f"Guild = {guild} & {guild.id}")
-        if member_id != 0:
-            print(guild)
-            _member = await self.client._http.get_member(guild_id=guild.id, member_id=member_id)
-            member = interactions.User(**_member)
-            if ctx.author.permissions & interactions.Permissions.BAN_MEMBERS:
-                await guild.remove_ban(user_id=member_id)
-                await ctx.send(f"Successfully Unbanned <@{member_id}>.")
+        try:
+            member_id = int(member_id) if len(member_id) == 18 else 0
+            guild = await ctx.get_guild()
+            # print(f"Guild = {guild} & {guild.id}")
+            if member_id != 0:
+                print(guild)
+                _member = await self.client._http.get_member(guild_id=guild.id, member_id=member_id)
+                member = interactions.User(**_member)
+                if ctx.author.permissions & interactions.Permissions.BAN_MEMBERS:
+                    await guild.remove_ban(user_id=member_id)
+                    await ctx.send(f"Successfully Unbanned <@{member_id}>.")
+                else:
+                    await ctx.send("Oops! you don't have the required permission to run this command.")
             else:
-                await ctx.send("Oops! you don't have the required permission to run this command.")
-        else:
-            await ctx.send("Please provide a valid Member ID to unban!")
+                await ctx.send("Please provide a valid Member ID to unban!")
+        except:
+            error_logger.error("Error occured while responding to /unban :-", exc_info=True)
 
 
 def setup(client):
