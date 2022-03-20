@@ -1,6 +1,27 @@
 # Start_info.py
 import subprocess, interactions
 from datetime import datetime
+import logging
+
+loggers = {}
+
+def AuroraLogger(name: str, log_file: str):
+    LOG_FILE = log_file
+    global loggers
+
+    if loggers.get(name):
+        return loggers.get(name)
+    else:
+        logger = logging.getLogger(name)
+        logger.setLevel(logging.INFO)
+        handler = logging.FileHandler(LOG_FILE)
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s", datefmt="%d-%b-%y %H:%M:%S")
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        loggers[name] = logger
+
+        return logger
+
 
 def version_info():
     version = 'No Data'
@@ -17,9 +38,9 @@ def version_info():
             pass
     return version, date
 
-def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, thumbnail_url: str, description: str = None, author_name: str = None, author_icon_url: str = None) -> interactions.Embed:
+def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, thumbnail_url: str, description: str = False, author_name: str = False, author_icon_url: str = False) -> interactions.Embed:
 
-    if author_name & author_icon_url & description != None:
+    if author_name and author_icon_url and description:
             embed = interactions.Embed(
                 title = title,
                 description=description,
@@ -37,7 +58,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
                 ),
             )
             return embed
-    elif author_name & author_icon_url != None:
+    elif author_name and author_icon_url:
             embed = interactions.Embed(
                 title = title,
                 color=color,
@@ -54,7 +75,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
                 ),
             )
             return embed
-    elif description != None:
+    elif description:
             embed = interactions.Embed(
                 title = title,
                 description=description,
