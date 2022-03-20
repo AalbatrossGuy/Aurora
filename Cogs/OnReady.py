@@ -1,7 +1,7 @@
 import interactions, os
 from customs.customs import version_info
 
-
+# COMMANDS
 class OnReady(interactions.Extension):
     def __init__(self, client):
         self.client = client
@@ -33,7 +33,7 @@ class OnReady(interactions.Extension):
         print('')
         print('==================================================')
         print('')
-        print('Bot up and running stable! (Errors will be logged in aurora.log)')
+        print('Bot up and running stable! (Errors will be logged in the logs folder.)')
 
 def setup(client):
     OnReady(client)
