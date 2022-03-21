@@ -38,7 +38,7 @@ def version_info():
             pass
     return version, date
 
-def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, thumbnail_url: str, description: str = False, author_name: str = False, author_icon_url: str = False) -> interactions.Embed:
+def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, thumbnail_url: str, fields: list, description: str = False, author_name: str = False, author_icon_url: str = False) -> interactions.Embed:
 
     if author_name and author_icon_url and description:
             embed = interactions.Embed(
@@ -56,6 +56,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
                     name=author_name,
                     icon_url=author_icon_url,
                 ),
+                fields=fields,
             )
             return embed
     elif author_name and author_icon_url:
@@ -73,6 +74,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
                     name=author_name,
                     icon_url=author_icon_url,
                 ),
+                fields=fields,
             )
             return embed
     elif description:
@@ -87,6 +89,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
                 thumbnail=interactions.EmbedImageStruct(
                     url=thumbnail_url,
                 )._json,
+                fields=fields,
             )
             return embed
     else:
@@ -100,6 +103,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
                 thumbnail=interactions.EmbedImageStruct(
                     url=thumbnail_url,
                 )._json,
+                fields=fields,
             )
             return embed
 
