@@ -6,7 +6,18 @@ from customs.customs import AuroraLogger
 file = open('config.json')
 config = json.loads(file.read())
 TOKEN = config['Aurora']['TOKEN']
-client  = interactions.Client(token=TOKEN)
+client  = interactions.Client(
+    token=TOKEN,
+    presence=interactions.ClientPresence(
+        activities=[
+            interactions.PresenceActivity(
+                name="over aurora 🌌",
+                type=interactions.PresenceActivityType.WATCHING
+            ),
+        ],
+        status=interactions.StatusType.ONLINE,
+    ),
+)
 
 # LOG SETTINGS
 logger = AuroraLogger('AuroraLog', 'logs/info.log')
@@ -20,8 +31,6 @@ error_logger = AuroraLogger('AuroraErrorLog', 'logs/errors.log')
     scope=903225083072495646,
 )
 async def _bot_latency(ctx):
-    x = len(await client._http.get_application_commands(client.me.id, 903225083072495646))
-    print(x)
     connection_latency = client.latency
     embed = interactions.Embed(
         title = "Aurora's Latency",
@@ -43,6 +52,13 @@ async def _bot_latency(ctx):
     )
     await ctx.send(embeds=embed)
 
+@client.command(
+    name="about",
+    description="Get Aurora's Information.",
+    scope=903225083072495646,
+)
+async def _bot_information(ctx):
+    pass
 
 # LOAD COGS
 for filename in os.listdir('./Cogs'):
