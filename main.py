@@ -52,13 +52,6 @@ async def _bot_latency(ctx):
     )
     await ctx.send(embeds=embed)
 
-@client.command(
-    name="about",
-    description="Get Aurora's Information.",
-    scope=903225083072495646,
-)
-async def _bot_information(ctx):
-    pass
 
 # LOAD COGS
 for filename in os.listdir('./Cogs'):
