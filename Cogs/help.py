@@ -31,7 +31,7 @@ class AuroraHelp(interactions.Extension):
                 interactions.EmbedField(name="<:server:908295956011810816> **General**", value="`ping`, `coming soon...`", inline=True),
                 interactions.EmbedField(name="<:mod:908289844395016232> **Moderation**", value="`clear`, `kick`, `ban`, `unban`, `coming soon...`", inline=True),
             ]
-            embed = createEmbed(title='AuroraBot Help Message', color=1752220, footer_text="The oldest known record of an aurora date back to 2600 BC",
+            embed = createEmbed(title='AuroraBot Help Message', color=1752220, footer_text="The oldest known record of an aurora dates back to 2600 BC.",
             footer_icon_url="https://media.discordapp.net/attachments/831369746855362590/954622807302615050/Aurora_Big.png?width=747&height=747",
             thumbnail_url="https://cdn.discordapp.com/attachments/831369746855362590/955342757361250314/unknown.png",
             description=f"**Total Commands: `{len(await self.client._http.get_application_commands(self.client.me.id, 903225083072495646))}`**\nDo /help [category] to get more info about a category.",
