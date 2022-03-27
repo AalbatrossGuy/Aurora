@@ -1,4 +1,4 @@
-import interactions, os, json
+import interactions, os, json, logging
 from datetime import datetime
 from customs.customs import AuroraLogger
 
@@ -23,6 +23,7 @@ client  = interactions.Client(
 # LOG SETTINGS
 logger = AuroraLogger('AuroraLog', 'logs/info.log')
 error_logger = AuroraLogger('AuroraErrorLog', 'logs/errors.log')
+logging.basicConfig(filename="logs/interactions_default.log", level=logging.ERROR)
 
 
 # COMMANDS
