@@ -8,6 +8,7 @@ config = json.loads(file.read())
 TOKEN = config['Aurora']['TOKEN']
 client  = interactions.Client(
     token=TOKEN,
+    disable_sync=True,
     presence=interactions.ClientPresence(
         activities=[
             interactions.PresenceActivity(
