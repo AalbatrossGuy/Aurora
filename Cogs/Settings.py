@@ -15,7 +15,8 @@ class Settings(interactions.Extension):
     )
     async def _bot_information(self, ctx):
         bot = interactions.User(**await self.client._http.get_self())._json
-        client = interactions.User(**await self.client._http.get_self())
+        #client = interactions.User(**await self.client._http.get_self())
+        guilds = len(self.client._http.cache.self_guilds.values)
         name = bot['username'] + '#' + bot['discriminator']
         # avatar = client.avatar_url
         id = bot['id']
@@ -61,8 +62,8 @@ class Settings(interactions.Extension):
             interactions.EmbedField(name="<:bot:957452828157313096> Version", value=version, inline=True),
             interactions.EmbedField(name="<:python:911833219056402504> Python Version", value=python_version(), inline=True),
             interactions.EmbedField(name="<:ram:911834876020408381> Memory Usage", value=f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", inline=True),
-            interactions.EmbedField(name="<:member:911835068144685056> Users", value="[Textholder]", inline=True),
-            interactions.EmbedField(name="Lines of Code", value=f"{ls:,}", inline=True),
+            interactions.EmbedField(name="📝 Lines of Code", value=f"{ls:,}", inline=True),
+            interactions.EmbedField(name="<:servers:957628143785619496> Guilds", value=guilds, inline=True),
             interactions.EmbedField(name="📂 Files", value=fc, inline=True),
             interactions.EmbedField(name="<:pythonsus:911840562510975036> Functions", value=fn, inline=True),
             interactions.EmbedField(name="<:pythonsus:911840562510975036> Comments", value=f"{cm:,}", inline=True),
