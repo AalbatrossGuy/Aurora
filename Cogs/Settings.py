@@ -1,5 +1,8 @@
-import interactions, json
+import interactions, json, pathlib
 from customs.customs import createEmbed
+from platform import python_version
+from psutil import Process, virtual_memory
+from datetime import timedelta
 
 class Settings(interactions.Extension):
     def __init__(self, client):
@@ -15,7 +18,6 @@ class Settings(interactions.Extension):
         client = interactions.User(**await self.client._http.get_self())
         name = bot['username'] + '#' + bot['discriminator']
         # avatar = client.avatar_url
-        bio = bot['bio']
         id = bot['id']
         mfa_enabled = bot['mfa_enabled']
         with open('config.json') as file:
@@ -23,18 +25,50 @@ class Settings(interactions.Extension):
             version = file['Aurora']['VERSION']
             github = file['METADATA']['GITHUB_REPOSITORY']
             license = file['METADATA']['LICENSE']
-            devs = "\n".join([file['Aurora']['DEVELOPERS'][0]['DISCORD'], file['Aurora']['DEVELOPERS'][1]['DISCORD']])
+            lead_dev = file['Aurora']['DEVELOPERS'][0]['DISCORD']
+            co_dev = file['Aurora']['DEVELOPERS'][1]['DISCORD']
+
+        proc = Process()
+        with proc.oneshot():
+            cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
+            mem_total = virtual_memory().total / (1024**2)
+            mem_of_total = proc.memory_percent()
+            mem_usage = mem_total * (mem_of_total / 100)
+            p = pathlib.Path('./')
+            cm = cr = fn = cl = ls = fc = 0
+            for f in p.rglob('*.py'):
+                if str(f).startswith("venv"):
+                    continue
+                fc += 1
+                with f.open(encoding='utf8') as of:
+                    for l in of.readlines():
+                        l = l.strip()
+                        if l.startswith('class'):
+                            cl += 1
+                        if l.startswith('def'):
+                            fn += 1
+                        if l.startswith('async def'):
+                            cr += 1
+                        if '#' in l:
+                            cm += 1
+                        ls += 1
 
         # Embed
 
         fields = [
-            interactions.EmbedField(name="Name", value=name, inline=True),
-            interactions.EmbedField(name="ID", value=id, inline=True),
-            interactions.EmbedField(name="Version", value=version, inline=True),
-            interactions.EmbedField(name="License", value=license, inline=True),
-            interactions.EmbedField(name="About Me", value=bio, inline=True),
-            interactions.EmbedField(name="mfa_enabled", value=mfa_enabled, inline=True),
-            interactions.EmbedField(name="Developers", value=devs, inline=True)
+            interactions.EmbedField(name="📛 Name", value=name, inline=True),
+            interactions.EmbedField(name="🆔 ID", value=f"{id[:8]}...", inline=True),
+            interactions.EmbedField(name="<:bot:957452828157313096> Version", value=version, inline=True),
+            interactions.EmbedField(name="<:python:911833219056402504> Python Version", value=python_version(), inline=True),
+            interactions.EmbedField(name="<:ram:911834876020408381> Memory Usage", value=f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", inline=True),
+            interactions.EmbedField(name="<:member:911835068144685056> Users", value="[Textholder]", inline=True),
+            interactions.EmbedField(name="Lines of Code", value=f"{ls:,}", inline=True),
+            interactions.EmbedField(name="📂 Files", value=fc, inline=True),
+            interactions.EmbedField(name="<:pythonsus:911840562510975036> Functions", value=fn, inline=True),
+            interactions.EmbedField(name="<:pythonsus:911840562510975036> Comments", value=f"{cm:,}", inline=True),
+            interactions.EmbedField(name="<:developer:911835252324986980> Lead Developer", value=lead_dev, inline=True),
+            interactions.EmbedField(name="<:developer:911835252324986980> Co-Developer", value=co_dev, inline=True),
+            interactions.EmbedField(name="License", value=license, inline=False)
         ]
 
         embed = createEmbed(title="About AuroraBot", color=15844367, footer_text="A Norwegian scientist was the first to explain the aurora phenomenon.",
@@ -43,7 +77,9 @@ class Settings(interactions.Extension):
             fields=fields
         )
 
+        # await ctx.send(f"{name}, {bio}, {id}, {mfa_enabled}, {version}, {github},  {license}, {devs}")
         await ctx.send(embeds=embed)
+
 
 def setup(client):
     Settings(client)
