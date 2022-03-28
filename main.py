@@ -6,8 +6,10 @@ from customs.customs import AuroraLogger
 file = open('config.json')
 config = json.loads(file.read())
 TOKEN = config['Aurora']['TOKEN']
-client  = interactions.Client(
+client = interactions.Client(
     token=TOKEN,
+    # intents=interactions.Intents.GUILD_MEMBERS | interactions.Intents.GUILD_MESSAGE_CONTENT,
+    intents = interactions.Intents.DEFAULT,
     disable_sync=True,
     presence=interactions.ClientPresence(
         activities=[
