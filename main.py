@@ -8,7 +8,7 @@ config = json.loads(file.read())
 TOKEN = config['Aurora']['TOKEN']
 client  = interactions.Client(
     token=TOKEN,
-    disable_sync=True,
+    #disable_sync=True,
     presence=interactions.ClientPresence(
         activities=[
             interactions.PresenceActivity(
@@ -30,7 +30,6 @@ logging.basicConfig(filename="logs/interactions_default.log", level=logging.ERRO
 @client.command(
     name="ping",
     description="Shows the bot's latency.",
-    scope=903225083072495646,
 )
 async def _bot_latency(ctx):
     connection_latency = client.latency
