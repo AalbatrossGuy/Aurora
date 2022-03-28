@@ -80,8 +80,29 @@ class Settings(interactions.Extension):
             fields=fields
         )
 
+        github = interactions.Button(
+            style=interactions.ButtonStyle.LINK,
+            label="Github",
+            emoji=await self.client._http.get_guild_emoji(guild_id=763737869482328074, emoji_id=851778689648689152),
+            url="https://github.com/AalbatrossGuy/Aurora"
+        )
+
+        dev_1 = interactions.Button(
+            style=interactions.ButtonStyle.LINK,
+            label="Dev #1",
+            emoji=await self.client._http.get_guild_emoji(guild_id=903225083072495646, emoji_id=911835252324986980),
+            url="https://github.com/AalbatrossGuy"
+        )
+
+        dev_2 = interactions.Button(
+            style=interactions.ButtonStyle.LINK,
+            label="Dev #2",
+            emoji=await self.client._http.get_guild_emoji(guild_id=903225083072495646, emoji_id=911835252324986980),
+            url="https://github.com/Catto-YFCN"
+        )
+
         # await ctx.send(f"{name}, {bio}, {id}, {mfa_enabled}, {version}, {github},  {license}, {devs}")
-        await ctx.send(embeds=embed)
+        await ctx.send(embeds=embed, components=[github, dev_1, dev_2])
 
 
 def setup(client):
