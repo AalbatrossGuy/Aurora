@@ -11,7 +11,6 @@ class Settings(interactions.Extension):
     @interactions.extension_command(
         name="about",
         description="Shows information about the bot.",
-        scope=903225083072495646,
     )
     async def _bot_information(self, ctx):
         bot = interactions.User(**await self.client._http.get_self())._json
@@ -31,7 +30,6 @@ class Settings(interactions.Extension):
 
         proc = Process()
         with proc.oneshot():
-            cpu_time = timedelta(seconds=(cpu := proc.cpu_times()).system + cpu.user)
             mem_total = virtual_memory().total / (1024**2)
             mem_of_total = proc.memory_percent()
             mem_usage = mem_total * (mem_of_total / 100)
