@@ -30,6 +30,7 @@ class AuroraHelp(interactions.Extension):
             fields = [
                 interactions.EmbedField(name="<:server:908295956011810816> **General**", value="`ping`, `coming soon...`", inline=True),
                 interactions.EmbedField(name="<:mod:908289844395016232> **Moderation**", value="`clear`, `kick`, `ban`, `unban`, `coming soon...`", inline=True),
+                interactions.EmbedField(name="<:settings:957629477087760436> **Settings**", value="`about`, `coming soon...`", inline=True)
             ]
             embed = createEmbed(title='AuroraBot Help Message', color=1752220, footer_text="The oldest known record of an aurora dates back to 2600 BC.",
             footer_icon_url="https://media.discordapp.net/attachments/831369746855362590/954622807302615050/Aurora_Big.png?width=747&height=747",
@@ -60,6 +61,18 @@ class AuroraHelp(interactions.Extension):
             embed=createEmbed(title="Aurora Help Message : Moderation", color=1752220, footer_text="The aurora borealis play a part in Chinese dragon legends",
                 footer_icon_url = "https://media.discordapp.net/attachments/831369746855362590/954622807302615050/Aurora_Big.png?width=747&height=747",
                 thumbnail_url="https://cdn.discordapp.com/attachments/831369746855362590/955340786948505600/unknown.png",
+                description="Help Regarding The `Moderation` Category.",
+                fields=fields
+            )
+            await ctx.send(embeds=embed)
+
+        elif category_name.lower() == 'settings':
+            fields = [
+                interactions.EmbedField(name="📌 about", value="*↳ Displays information about the bot.*"),
+            ]
+            embed=createEmbed(title="Aurora Help Message : Settings", color=1752220, footer_text="The term ‘aurora borealis’ was coined in 1619",
+                footer_icon_url = "https://media.discordapp.net/attachments/831369746855362590/954622807302615050/Aurora_Big.png?width=747&height=747",
+                thumbnail_url="https://cdn.discordapp.com/attachments/831369746855362590/957630340330037258/unknown.png",
                 description="Help Regarding The `Moderation` Category.",
                 fields=fields
             )
