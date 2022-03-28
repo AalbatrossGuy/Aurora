@@ -44,6 +44,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
             embed = interactions.Embed(
                 title = title,
                 description=description,
+                timestamp=datetime.utcnow().isoformat(),
                 color=color,
                 footer=interactions.EmbedFooter(
                     text=footer_text,
@@ -62,6 +63,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
     elif author_name and author_icon_url:
             embed = interactions.Embed(
                 title = title,
+                timestamp=datetime.utcnow().isoformat(),
                 color=color,
                 footer=interactions.EmbedFooter(
                     text=footer_text,
@@ -81,6 +83,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
             embed = interactions.Embed(
                 title = title,
                 description=description,
+                timestamp=datetime.utcnow().isoformat(),
                 color=color,
                 footer=interactions.EmbedFooter(
                     text=footer_text,
@@ -95,6 +98,7 @@ def createEmbed(title: str, color: int, footer_text: str, footer_icon_url: str, 
     else:
             embed = interactions.Embed(
                 title = title,
+                timestamp=datetime.utcnow().isoformat(),
                 color=color,
                 footer=interactions.EmbedFooter(
                     text=footer_text,
