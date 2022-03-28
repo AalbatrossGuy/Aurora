@@ -15,7 +15,6 @@ class Admin(interactions.Extension):
     @interactions.extension_command(
         name="clear",
         description="Clear messages in chat.",
-        scope=903225083072495646,
         options = [
         interactions.Option(
             name="amount",
@@ -40,7 +39,6 @@ class Admin(interactions.Extension):
     @interactions.extension_command(
         name="kick",
         description="Kicks a user from the server.",
-        scope=903225083072495646,
         options = [
             interactions.Option(
                 name="member",
@@ -73,7 +71,6 @@ class Admin(interactions.Extension):
     @interactions.extension_command(
         name="ban",
         description="Bans a user from the server.",
-        scope=903225083072495646,
         options = [
             interactions.Option(
                 name="member",
@@ -106,7 +103,6 @@ class Admin(interactions.Extension):
     @interactions.extension_command(
         name="unban",
         description="Unbans a user from the server.",
-        scope=903225083072495646,
         options = [
             interactions.Option(
                 name="member_id",
