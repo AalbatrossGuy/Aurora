@@ -1,7 +1,7 @@
 import interactions, json, pathlib
 from customs.customs import createEmbed
 from platform import python_version
-from psutil import Process, virtual_memory
+from psutil import Process, virtual_memory, cpu_percent
 from datetime import timedelta
 
 class Settings(interactions.Extension):
@@ -31,6 +31,9 @@ class Settings(interactions.Extension):
         proc = Process()
         with proc.oneshot():
             mem_total = virtual_memory().total / (1024**2)
+            thread_counts = proc.num_threads()
+            cpus = cpu_percent()
+            cpu = f"{cpus}%\n({thread_counts} Threads)"
             mem_of_total = proc.memory_percent()
             mem_usage = mem_total * (mem_of_total / 100)
             p = pathlib.Path('./')
@@ -59,6 +62,7 @@ class Settings(interactions.Extension):
             interactions.EmbedField(name="🆔 ID", value=f"{id[:8]}...", inline=True),
             interactions.EmbedField(name="<:bot:957452828157313096> Version", value=version, inline=True),
             interactions.EmbedField(name="<:python:911833219056402504> Python Version", value=python_version(), inline=True),
+            interactions.EmbedField(name="<:cpu1:957924151753068544> CPU", value=cpu, inline=True),
             interactions.EmbedField(name="<:ram:911834876020408381> Memory Usage", value=f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", inline=True),
             interactions.EmbedField(name="📝 Lines of Code", value=f"{ls:,}", inline=True),
             interactions.EmbedField(name="<:servers:957628143785619496> Guilds", value=guilds, inline=True),
