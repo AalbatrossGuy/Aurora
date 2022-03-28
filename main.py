@@ -8,7 +8,7 @@ config = json.loads(file.read())
 TOKEN = config['Aurora']['TOKEN']
 client  = interactions.Client(
     token=TOKEN,
-    #disable_sync=True,
+    disable_sync=True,
     presence=interactions.ClientPresence(
         activities=[
             interactions.PresenceActivity(
@@ -25,6 +25,9 @@ logger = AuroraLogger('AuroraLog', 'logs/info.log')
 error_logger = AuroraLogger('AuroraErrorLog', 'logs/errors.log')
 logging.basicConfig(filename="logs/interactions_default.log", level=logging.ERROR)
 
+# CONSTANTS
+curr_time = datetime.now()
+
 
 # COMMANDS
 @client.command(
@@ -35,7 +38,8 @@ async def _bot_latency(ctx):
     connection_latency = client.latency
     embed = interactions.Embed(
         title = "Aurora's Latency",
-        description=f"{connection_latency.__format__('.2f')} ms",
+        description=f"{connection_latency.__format__('.2f')} ms. Started (<t:{int(datetime.timestamp(curr_time))}:R>)",
+        timestamp=datetime.utcnow().isoformat(),
         color=15158332,
         footer=interactions.EmbedFooter(
             text="The WS Latency & Connection Latency for Aurora.",
