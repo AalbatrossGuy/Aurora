@@ -32,7 +32,7 @@ dir_inter = [
 
 ]
 
-member_json_example  {
+member_json_example = {
     'roles': [], 'nick': 'deez nutz', 'avatar': None, 'premium_since': None, 'joined_at': '2021-10-28T10:14:00.921000+00:00',
     'is_pending': False, 'pending': False, 'communication_disabled_until': None, 'user': {'id': '676414187131371520', 'username': 'AalbatrossGuy',
     'avatar': '506eeebe11d2f4904609d468c0027713', 'discriminator': '5129', 'public_flags': 128},
