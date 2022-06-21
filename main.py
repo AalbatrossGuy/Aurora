@@ -1,73 +1,42 @@
-import discord, os, json, logging
-from datetime import datetime
-from customs.customs import AuroraLogger
+import discord, logging, json
+from discord import app_commands
+from time import perf_counter
 
-# # CORE SETTINGS
-# file = open('config.json')
-# config = json.loads(file.read())
-# TOKEN = config['Aurora']['TOKEN']
-# client = interactions.Client(
-#     token=TOKEN,
-#     # intents=interactions.Intents.GUILD_MEMBERS | interactions.Intents.GUILD_MESSAGE_CONTENT,
-#     intents = interactions.Intents.DEFAULT,
-#     disable_sync=True,
-#     presence=interactions.ClientPresence(
-#         activities=[
-#             interactions.PresenceActivity(
-#                 name="over aurora 🌌",
-#                 type=interactions.PresenceActivityType.WATCHING
-#             ),
-#         ],
-#         status=interactions.StatusType.ONLINE,
-#     ),
+file = open("config.json", "r")
+config = json.loads(file.read())
+TEST_GUILD = discord.Object(id=config["Aurora"]["TEST_GUILD"])
+handler = logging.FileHandler(filename="logs/aurora.log", encoding="utf-8", mode="w")
+
+
+class AuroraClient(discord.AutoShardedClient):
+    def __init__(self, *, intents: discord.Intents):
+        super().__init__(intents=intents)
+        self.tree = app_commands.CommandTree(self)
+
+    async def setup_hook(self):
+        self.tree.copy_global_to(guild=TEST_GUILD)
+        await self.tree.sync(guild=TEST_GUILD)
+
+
+client = AuroraClient(intents=discord.Intents.default())
+
+
+# @client.tree.command(name="add", description="Adds two numbers.")
+# @app_commands.rename(first_number="first", second_number="second")
+# @app_commands.describe(
+#     first_number="The first number",
+#     second_number="The second number",
 # )
-#
-# # LOG SETTINGS
-# logger = AuroraLogger('AuroraLog', 'logs/info.log')
-# error_logger = AuroraLogger('AuroraErrorLog', 'logs/errors.log')
-# logging.basicConfig(filename="logs/interactions_default.log", level=logging.ERROR)
-#
-# # CONSTANTS
-# curr_time = datetime.now()
-#
-#
-# # COMMANDS
-# @client.command(
-#     name="ping",
-#     description="Shows the bot's latency.",
-# )
-# async def _bot_latency(ctx):
-#     connection_latency = client.latency
-#     embed = interactions.Embed(
-#         title = "Aurora's Latency",
-#         description=f"{connection_latency.__format__('.2f')} ms. Started (<t:{int(datetime.timestamp(curr_time))}:R>)",
-#         timestamp=datetime.utcnow().isoformat(),
-#         color=15158332,
-#         footer=interactions.EmbedFooter(
-#             text="The WS Latency & Connection Latency for Aurora.",
-#             icon_url="https://media.discordapp.net/attachments/831369746855362590/954622807302615050/Aurora_Big.png?width=747&height=747",
-#         ),
-#         thumbnail=interactions.EmbedImageStruct(
-#             url="https://c.tenor.com/2bvE7aaOf6wAAAAC/discord-ping.gif",
-#             #height=300,
-#             #width=250,
-#         )._json,
-#         author=interactions.EmbedAuthor(
-#             name="AalbatrossGuy#5129",
-#             icon_url="https://media.discordapp.net/attachments/831369746855362590/898903606319800340/IMG_20211009_172918_418.jpg",
-#         ),
-#     )
-#     await ctx.send(embeds=embed)
-#
-#
-# # LOAD COGS
-# for filename in os.listdir('./Cogs'):
-#     if filename.endswith('.py'):
-#         try:
-#             client.load(f"Cogs.{filename[:-3]}")
-#             logger.info(f"Loaded cogs.{filename[:-3]}")
-#         except:
-#             error_logger.error("Error occured while loading Cogs :-", exc_info=True)
-#
-# logger.info(f"Bot Logged in Discord at - {datetime.now().strftime('%H:%M:%S')}")
-# client.start()
+# async def add(interaction: discord.Interaction, first_number: int, second_number: discord.Member):
+#     await interaction.response.send_message(f"{first_number} {second_number.id}")
+
+@client.tree.command(name="ping", description="Shows the websocket latency and database latency.")
+async def show_latency(interaction: discord.Interaction):
+    # ws ping
+    embed = discord.Embed(title=":ping_pong: Aurora's Latency", color=discord.Colour.dark_gold(), timestamp=interaction.created_at)
+    embed.add_field(name=":green_heart: WS Ping", value=f"```py\n{round(client.latency * 1000)} ms```")
+    embed.set_footer(text="Delta Δ is the fourth letter of the Greek Alphabet", icon_url=interaction.user.display_avatar)
+    embed.set_thumbnail(url="https://64.media.tumblr.com/be43242341a7be9d50bb2ff8965abf61/tumblr_o1ximcnp1I1qf84u9o1_1280.gif")
+    await interaction.response.send_message(embed=embed)
+
+client.run(config["Aurora"]["TOKEN"], log_handler=handler, log_level=logging.INFO)
