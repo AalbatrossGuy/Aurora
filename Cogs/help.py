@@ -4,7 +4,7 @@
 #
 # # LOG SETTINGS
 # logger = AuroraLogger('AuroraLog', 'logs/info.log')
-# error_logger = AuroraLogger('AuroraErrorLog', 'logs/errors.log')
+# error_logger = AuroraLogger('AuroraErrorLog', 'logs/aurora.log')
 #
 #
 # # COMMANDS
