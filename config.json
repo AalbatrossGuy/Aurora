@@ -2,7 +2,7 @@
   "Aurora" : {
     "TOKEN" : "your-token-here",
     "VERSION" : "v0.1-beta",
-    "TEST_SERVER" : "903225083072495646",
+    "TEST_GUILD" : "903225083072495646",
     "DEVELOPERS" : [
       {
         "DISCORD" : "AalbatrossGuy#5129",
