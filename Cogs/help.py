@@ -1,16 +1,14 @@
-# import interactions, logging
-# from datetime import datetime
-# from customs.customs import AuroraLogger, createEmbed
-#
-# # LOG SETTINGS
-# logger = AuroraLogger('AuroraLog', 'logs/info.log')
-# error_logger = AuroraLogger('AuroraErrorLog', 'logs/aurora.log')
-#
+import discord
+from discord.ext import commands
+
+
 #
 # # COMMANDS
-# class AuroraHelp(interactions.Extension):
-#     def __init__(self, client):
-#         self.client = client
+class AuroraHelp(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+
 #
 #     @interactions.extension_command(
 #         name="help",
@@ -78,5 +76,5 @@
 #             )
 #             await ctx.send(embeds=embed)
 #
-# def setup(client):
-#     AuroraHelp(client)
+async def setup(client):
+    await client.add_cog(AuroraHelp(client))

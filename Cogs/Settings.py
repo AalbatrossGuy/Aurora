@@ -1,12 +1,13 @@
-# import interactions, json, pathlib
-# from customs.customs import createEmbed
-# from platform import python_version
-# from psutil import Process, virtual_memory, cpu_percent
-# from datetime import timedelta
+import discord
+from discord.ext import commands
+
+
 #
-# class Settings(interactions.Extension):
-#     def __init__(self, client):
-#         self.client = client
+class Settings(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+
 #
 #     @interactions.extension_command(
 #         name="about",
@@ -105,5 +106,5 @@
 #         await ctx.send(embeds=embed, components=[github, dev_1, dev_2])
 #
 #
-# def setup(client):
-#     Settings(client)
+async def setup(client):
+    await client.add_cog(Settings(client))

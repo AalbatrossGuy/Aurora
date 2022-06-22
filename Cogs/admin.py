@@ -1,14 +1,14 @@
-# import interactions, asyncio, logging
-# from customs.customs import AuroraLogger
+import discord
+from discord.ext import commands
+
+
 #
-# # LOG SETTINGS
-# logger = AuroraLogger('AuroraLog', 'logs/info.log')
-# error_logger = AuroraLogger('AuroraErrorLog', 'logs/aurora.log')
-#
-# # COMMANDS
-# class Admin(interactions.Extension):
-#     def __init__(self, client):
-#         self.client = client
+#  COMMANDS
+class Admin(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+
 #
 #
 #     # Clear Command
@@ -132,5 +132,5 @@
 #             error_logger.error("Error occured while responding to /unban :-", exc_info=True)
 #
 #
-# def setup(client):
-#     Admin(client)
+async def setup(client):
+    await client.add_cog(Admin(client))

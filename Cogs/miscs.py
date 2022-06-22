@@ -1,10 +1,24 @@
-# import interactions, pandas
-# from datetime import datetime
-# from customs.customs import createEmbed
+from discord.ext import commands
+import discord
+from discord import app_commands
+
+
 #
-# class Miscs(interactions.Extension):
-#     def __init__(self, client):
-#         self.client = client
+class Miscs(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+    # EXAMPLE
+    # @app_commands.command(name="add")
+    # @app_commands.rename(first_number="first", second_number="second")
+    # @app_commands.describe(
+    #     first_number="The first number",
+    #     second_number="The second number",
+    # )
+    # async def add_me(self, interaction: discord.Interaction, first_number: int, second_number: discord.Member):
+    #     await interaction.response.send_message(f"{first_number} {second_number.id}")
+
+
 #
 #
 #     @interactions.extension_command(
@@ -87,9 +101,9 @@
 #         )
 #         await ctx.send(embeds=embed)
 #
-#
-# def setup(client):
-#     Miscs(client)
+
+async def setup(client):
+    await client.add_cog(Miscs(client))
 #
 #
 # # NOTE: f"https://cdn.discordapp.com/avatars/{int(self.client.me.id)}/{self.client.me.icon}"
