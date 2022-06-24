@@ -46,7 +46,7 @@ async def show_latency(interaction: discord.Interaction):
     embed = discord.Embed(title=":ping_pong: Aurora's Latency", color=discord.Colour.dark_gold(),
                           timestamp=interaction.created_at)
     embed.add_field(name=":green_heart: WS Ping", value=f"```py\n{round(client.latency * 1000)} ms```")
-    embed.set_footer(text="Delta Δ is the fourth letter of the Greek Alphabet",
+    embed.set_footer(text="A Norwegian scientist was the first to explain the aurora phenomenon.",
                      icon_url=interaction.user.display_avatar)
     embed.set_thumbnail(
         url="https://64.media.tumblr.com/be43242341a7be9d50bb2ff8965abf61/tumblr_o1ximcnp1I1qf84u9o1_1280.gif")
