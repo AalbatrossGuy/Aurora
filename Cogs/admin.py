@@ -19,10 +19,9 @@ class Admin(commands.Cog):
     )
     async def _clear_messages(self, interaction: discord.Interaction, amount: int = 10):
         try:
+            await interaction.response.defer(thinking=True, ephemeral=True)
             deleted_messages = await interaction.channel.purge(limit=amount)
-            await interaction.response.send_message(f"Deleted {len(deleted_messages)} Messages!")
-            await asyncio.sleep(3)
-            await interaction.delete_original_message()
+            await interaction.followup.send(f"Deleted {len(deleted_messages)} Messages!")
         except:
             error_logger.error(f"Error occurred while running clear command:- ", exc_info=True)
 
@@ -73,40 +72,39 @@ class Admin(commands.Cog):
             await interaction.delete_original_message()
         except:
             error_logger.error(f"Error occurred while running ban command:- ", exc_info=True)
-#
-#
-#     # Unban Command
-#     @interactions.extension_command(
-#         name="unban",
-#         description="Unbans a user from the server.",
-#         options = [
-#             interactions.Option(
-#                 name="member_id",
-#                 description="The member to unban from the server.",
-#                 type=interactions.OptionType.STRING,
-#                 required=True,
-#             ),
-#         ],
-#     )
-#     async def _unban_member(self, ctx, member_id: str) -> None:
-#         try:
-#             member_id = int(member_id) if len(member_id) == 18 else 0
-#             guild = await ctx.get_guild()
-#             # print(f"Guild = {guild} & {guild.id}")
-#             if member_id != 0:
-#                 print(guild)
-#                 _member = await self.client._http.get_member(guild_id=guild.id, member_id=member_id)
-#                 member = interactions.User(**_member)
-#                 if ctx.author.permissions & interactions.Permissions.BAN_MEMBERS:
-#                     await guild.remove_ban(user_id=member_id)
-#                     await ctx.send(f"Successfully Unbanned <@{member_id}>.")
-#                 else:
-#                     await ctx.send("Oops! you don't have the required permission to run this command.")
-#             else:
-#                 await ctx.send("Please provide a valid Member ID to unban!")
-#         except:
-#             error_logger.error("Error occured while responding to /unban :-", exc_info=True)
-#
-#
+
+    @app_commands.command(name="unban", description="Unbans a banned user.")
+    @app_commands.checks.has_permissions(ban_members=True)
+    @app_commands.describe(
+        member="The member to unban. Either give ID or complete username with discriminator(#)."
+    )
+    async def _unban_member(self, interaction: discord.Interaction, member: str):
+
+        if member.isdigit():
+            try:
+                try:
+                    member_obj = await self.client.fetch_user(member)
+                    await interaction.guild.unban(user=member_obj)
+                    await interaction.response.send_message(f"Successfully unbanned **{member_obj}**!")
+                except discord.NotFound:
+                    await interaction.response.send_message(
+                        f"User with id {member} was not found in the banned entries.")
+            except:
+                error_logger.error("Error occurred while running unban command[INTEGER_INPUT]:- ", exc_info=True)
+
+        elif isinstance(member, str) and "#" in member:
+
+            try:
+                banned_users = interaction.guild.bans()
+                member_name, member_discriminator = member.split('#')
+                async for ban_entry in banned_users:
+                    user = ban_entry.user
+                    if (user.name, user.discriminator) == (member_name, member_discriminator):
+                        await interaction.guild.unban(user=user)
+                        await interaction.response.send_message(f"Successfully unbanned **{member}**!")
+            except:
+                error_logger.error(f"Error occurred while running unban command[STRING_INPUT]:- ", exc_info=True)
+
+
 async def setup(client):
     await client.add_cog(Admin(client))
