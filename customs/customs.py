@@ -1,4 +1,6 @@
-import subprocess
+import subprocess, datetime
+
+uptime: datetime.datetime
 
 
 def version_info():
@@ -11,10 +13,18 @@ def version_info():
             version = line.split(' ')[1]
         elif line.startswith('Date'):
             date = line[5:].strip().replace('"', '')
-            # date = date.replace(' +', '+').replace(' ', 'T')
         else:
             pass
     return version, date
+
+
+def get_uptime():
+    return uptime
+
+
+def set_uptime(time: datetime.datetime):
+    global uptime
+    uptime = time
 
 
 if __name__ == '__main__':
