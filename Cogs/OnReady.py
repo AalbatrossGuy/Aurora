@@ -1,5 +1,6 @@
 from discord.ext import commands
-from customs.customs import version_info
+from customs.customs import version_info, set_uptime
+import datetime
 
 
 class OnReady(commands.Cog):
@@ -11,6 +12,7 @@ class OnReady(commands.Cog):
         version = version_info()[0][:7]
         date = version_info()[1]
         print(f'Running on branch {version} committed on {date}')
+        set_uptime(datetime.datetime.now())
         print('Running Aurora...')
 
 
