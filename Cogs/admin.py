@@ -21,7 +21,7 @@ class Admin(commands.Cog):
         try:
             await interaction.response.defer(thinking=True, ephemeral=True)
             deleted_messages = await interaction.channel.purge(limit=amount)
-            await interaction.followup.send(f"Deleted {len(deleted_messages)} Messages!")
+            await interaction.followup.send(f"<:salute:831807820118622258> Deleted {len(deleted_messages)} Messages!")
         except:
             error_logger.error(f"Error occurred while running clear command:- ", exc_info=True)
 
