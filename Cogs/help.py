@@ -1,12 +1,65 @@
 import discord
 from discord.ext import commands
+from discord import app_commands
+from customs.log import AuroraLogger
+
+# LOGGER
+error_logger = AuroraLogger("AuroraErrorLog", "logs/errors.log")
+
+# Category Names
+CATEGORY_LIST = ["moderation", "settings", "utility", "fun"]
 
 
-#
-# # COMMANDS
+# COMMANDS
 class AuroraHelp(commands.Cog):
     def __init__(self, client):
         self.client = client
+
+    @app_commands.command(name="help", description="Shows the help message for the bot.")
+    async def _help(self, interaction: discord.Interaction, category: str = None):
+        try:
+            if not category:
+                embed = discord.Embed(
+                    title="<a:Hello:917378477638946877> Aurora Help", colour=discord.Colour.blurple(),
+                    description=f"**Use `/help` or `/help [category]` for seeing this help message or help on a category\n\nTotal Commands `{len(list(self.client.tree.walk_commands())):,}` | Total members `{len(list(self.client.get_all_members())):,}` | Total Guilds `{len(list(self.client.guilds))}`**",
+                    timestamp=interaction.created_at)
+                embed.set_thumbnail(url=self.client.user.display_avatar)
+                embed.set_footer(text="There are hundreds of documented reports of ‘auroral sound’",
+                                 icon_url=interaction.user.display_avatar)
+
+                embed.add_field(name="<:mod:992770697921310780> Moderation", value="`/help moderation`")
+                embed.add_field(name="<:settings:957629477087760436> Settings", value="`/help settings`")
+                embed.add_field(name="<:utilitywhat:992784837205311498> Utility", value="`/help utility`")
+                embed.add_field(name="<:clown:992786518445932707> Fun", value="`/help fun`")
+
+                select = discord.ui.Select(placeholder="Select a Help Category...", max_values=1,
+                                           options=[
+                                               discord.SelectOption(label="Moderation",
+                                                                    description="clear, ban, kick, etc.",
+                                                                    emoji=self.client.get_emoji(992770697921310780)),
+                                           ]
+                                           )
+                button = discord.ui.Button(
+                    label="🗑️", style=discord.ButtonStyle.red
+                )
+                view = discord.ui.View()
+                view.add_item(select)
+                view.add_item(button)
+
+                @discord.ui.button(label="🗑️", style=)
+
+                async def callback(interaction):
+                    if select.values[0].lower() == "moderation":
+                        await interaction.response.edit_message(embed=discord.Embed(title="Moderation"))
+
+
+                select.callback = callback
+
+                await interaction.response.send_message(embed=embed, view=view)
+
+
+        except:
+            error_logger.error("Error occured while running help command:- ", exc_info=True)
 
 
 #
