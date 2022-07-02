@@ -44,6 +44,3 @@ class Miscs(commands.Cog):
 
 async def setup(client):
     await client.add_cog(Miscs(client))
-#
-#
-# # NOTE: f"https://cdn.discordapp.com/avatars/{int(self.client.me.id)}/{self.client.me.icon}"
