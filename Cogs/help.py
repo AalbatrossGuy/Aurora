@@ -1,13 +1,55 @@
-import discord
+import discord, json
 from discord.ext import commands
 from discord import app_commands
 from customs.log import AuroraLogger
+from customs.help_embeds import embedModeration, embedSettings
 
 # LOGGER
 error_logger = AuroraLogger("AuroraErrorLog", "logs/errors.log")
 
-# Category Names
-CATEGORY_LIST = ["moderation", "settings", "utility", "fun"]
+# config.json
+file = open("config.json", "r")
+config = json.loads(file.read())
+
+
+# VIEW
+class HelpView(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+
+        self.add_item(HelpSelect())
+        self.add_item(HelpButton())
+        self.add_item(discord.ui.Button(label="Invite Me", style=discord.ButtonStyle.url, url=config["METADATA"]["INVITE_LINK"], emoji="<:invite:993158095721201764>"))
+        self.add_item(discord.ui.Button(label="Github", style=discord.ButtonStyle.url,
+                                        url=f'{config["METADATA"]["GITHUB_REPOSITORY"]}',
+                                        emoji="<:link:908297685545656370>"))
+
+
+# INTERACTIONS
+class HelpSelect(discord.ui.Select):
+    def __init__(self):
+        options = [
+            discord.SelectOption(label="Moderation", description="clear, ban, kick, etc.",
+                                 emoji="<:mod:992770697921310780>"),
+            discord.SelectOption(label="Settings", description="about, etc.", emoji="<:settings:957629477087760436>")
+        ]
+        super().__init__(placeholder="Select a Help Category", max_values=1, options=options)
+
+    async def callback(self, interaction: discord.Interaction):
+        if self.values[0].lower() == "moderation":
+            await interaction.response.edit_message(embed=embedModeration)
+
+        if self.values[0].lower() == "settings":
+            await interaction.response.edit_message(embed=embedSettings)
+
+
+class HelpButton(discord.ui.Button):
+    def __init__(self):
+        super().__init__(label="🗑️", style=discord.ButtonStyle.red)
+
+    async def callback(self, interaction: discord.Interaction):
+        if self.label == "🗑️":
+            await interaction.message.delete()
 
 
 # COMMANDS
@@ -31,35 +73,13 @@ class AuroraHelp(commands.Cog):
                 embed.add_field(name="<:settings:957629477087760436> Settings", value="`/help settings`")
                 embed.add_field(name="<:utilitywhat:992784837205311498> Utility", value="`/help utility`")
                 embed.add_field(name="<:clown:992786518445932707> Fun", value="`/help fun`")
-
-                select = discord.ui.Select(placeholder="Select a Help Category...", max_values=1,
-                                           options=[
-                                               discord.SelectOption(label="Moderation",
-                                                                    description="clear, ban, kick, etc.",
-                                                                    emoji=self.client.get_emoji(992770697921310780)),
-                                           ]
-                                           )
-                button = discord.ui.Button(
-                    label="🗑️", style=discord.ButtonStyle.red
-                )
-                view = discord.ui.View()
-                view.add_item(select)
-                view.add_item(button)
-
-                @discord.ui.button(label="🗑️", style=)
-
-                async def callback(interaction):
-                    if select.values[0].lower() == "moderation":
-                        await interaction.response.edit_message(embed=discord.Embed(title="Moderation"))
-
-
-                select.callback = callback
-
+                view = HelpView()
                 await interaction.response.send_message(embed=embed, view=view)
 
+                # await interaction.response.defer(thinking=True)
 
         except:
-            error_logger.error("Error occured while running help command:- ", exc_info=True)
+            error_logger.error("Error occurred while running help command:- ", exc_info=True)
 
 
 #
