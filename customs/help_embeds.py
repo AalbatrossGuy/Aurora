@@ -19,3 +19,9 @@ embedSettings = discord.Embed(title="<:settings:957629477087760436> Settings Cat
 embedSettings.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
 embedSettings.add_field(name="• `about`", value="Shows information about the bot", inline=False)
 embedSettings.add_field(name="• Coming Soon...", value="Coming soon...")
+
+# UTILITY EMBED
+embedUtility = discord.Embed(title="<:utilitywhat:992784837205311498> Utility Category", color=discord.Colour.dark_teal())
+embedUtility.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
+embedUtility.add_field(name="• `avatar [member]`", value="Shows the avatar of the member mentioned. If nothing is provided, the avatar of the author is shown.", inline=False)
+embedUtility.add_field(name="• Coming Soon...", value="Coming soon ...")
