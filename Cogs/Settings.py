@@ -7,7 +7,6 @@ from psutil import Process, virtual_memory
 from customs.log import AuroraLogger
 from customs.customs import get_uptime
 
-
 # LOGGER
 error_logger = AuroraLogger("AuroraErrorLog", "logs/errors.log")
 
@@ -63,22 +62,28 @@ class Settings(commands.Cog):
             embed.add_field(name="📂 Files", value=fc, inline=True)
             embed.add_field(name="<:pythonsus:911840562510975036> Functions", value=fn, inline=True)
             embed.add_field(name="<:pythonsus:911840562510975036> Comments", value=f"{cm:,}", inline=True)
-            embed.add_field(name="<:developer:911835252324986980> Developer", value="AalbatrossGuy#0099", inline=True)
+            embed.add_field(name="<:developer:911835252324986980> Developer", value="AalbatrossGuy#5129", inline=True)
             embed.add_field(name="<:tester:911835692945010720> Official Tester",
-                            value="Your Friendly Cat Neighbor#6969", inline=True)
+                            value="Your Friendly Cat Neighbor#3521", inline=True)
             embed.add_field(name='<:pc:911836792603414528> Hosted By', value="4ngel🍁#2769", inline=True)
 
             buttons = discord.ui.View()
             with open("config.json", mode="r") as file:
                 file = json.loads(file.read())
                 buttons.add_item(
-                    discord.ui.Button(label="Github", style=discord.ButtonStyle.url, url=file["METADATA"]["GITHUB_REPOSITORY"], emoji=self.client.get_emoji(851778689648689152))
+                    discord.ui.Button(label="Github", style=discord.ButtonStyle.url,
+                                      url=file["METADATA"]["GITHUB_REPOSITORY"],
+                                      emoji=self.client.get_emoji(851778689648689152))
                 )
             buttons.add_item(
-                discord.ui.Button(label="Developer", style=discord.ButtonStyle.url, url=file["Aurora"]["DEVELOPERS"][0]["GITHUB"], emoji=self.client.get_emoji(911835252324986980))
+                discord.ui.Button(label="Developer", style=discord.ButtonStyle.url,
+                                  url=file["Aurora"]["DEVELOPERS"][0]["GITHUB"],
+                                  emoji=self.client.get_emoji(911835252324986980))
             )
             buttons.add_item(
-                discord.ui.Button(label="Tester", style=discord.ButtonStyle.url, url=file["Aurora"]["DEVELOPERS"][1]["GITHUB"], emoji=self.client.get_emoji(911835692945010720))
+                discord.ui.Button(label="Tester", style=discord.ButtonStyle.url,
+                                  url=file["Aurora"]["DEVELOPERS"][1]["GITHUB"],
+                                  emoji=self.client.get_emoji(911835692945010720))
             )
 
             await interaction.response.send_message(embed=embed, view=buttons)
