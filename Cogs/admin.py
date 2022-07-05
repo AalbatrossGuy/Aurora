@@ -7,6 +7,25 @@ from customs.log import AuroraLogger
 error_logger = AuroraLogger('AuroraErrorLog', 'logs/errors.log')
 
 
+# VIEW
+class Confirm(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        self.value = None
+
+    @discord.ui.button(label="✓", style=discord.ButtonStyle.green)
+    async def confirm(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Confirming...", ephemeral=True)
+        self.value = True
+        self.stop()
+
+    @discord.ui.button(label="✕", style=discord.ButtonStyle.red)
+    async def cancel(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Cancelling...", ephemeral=True)
+        self.value = False
+        self.stop()
+
+
 #  COMMANDS
 class Admin(commands.Cog):
     def __init__(self, client):
@@ -40,12 +59,21 @@ class Admin(commands.Cog):
                              icon_url=interaction.user.display_avatar)
             embed.set_thumbnail(
                 url="https://i.gifer.com/Bwtn.gif")
-            user_channel = await member.create_dm()
-            await user_channel.send(embed=embed)
-            await member.kick(reason=reason)
-            await interaction.response.send_message(f"Successfully kicked {member.mention} from the server!")
-            await asyncio.sleep(3)
-            await interaction.delete_original_message()
+
+            view = Confirm()
+            await interaction.response.send_message(embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation", description=f"**Are you sure you want to kick {member.mention} from the server?**", color=discord.Colour.blue(), timestamp=interaction.created_at), view=view)
+            await view.wait()
+
+            if view.value is None:
+                await interaction.edit_original_message(embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation timed out!", description="**You did not click on any of the buttons hence the confirmation timed out.**", color=discord.Colour.red(), timestamp=interaction.created_at))
+            elif view.value:
+                user_channel = await member.create_dm()
+                await user_channel.send(embed=embed)
+                await member.kick(reason=reason)
+                await interaction.edit_original_message(
+                    embed=discord.Embed(title=f"<:kick:989811114567168051> Successfully kicked {member.display_name} from the server!", description=f"**{member.mention} was kicked from the server for the reason `{reason}`**", color=discord.Color.dark_orange(), timestamp=interaction.created_at))
+            else:
+                await interaction.edit_original_message(embed=discord.Embed(title="<:wrong:773145931973525514> Operation cancelled!", description=f"**Operation has been cancelled by {interaction.user.mention}**", color=discord.Color.dark_magenta(), timestamp=interaction.created_at))
         except:
             error_logger.error(f"Error occurred while running kick command:- ", exc_info=True)
 
@@ -57,19 +85,34 @@ class Admin(commands.Cog):
     )
     async def _ban_member(self, interaction: discord.Interaction, member: discord.Member, reason: str = "N/A"):
         try:
-            embed = discord.Embed(title="<:kick:989811114567168051> Banned", color=discord.Colour.dark_gold(),
+            embed = discord.Embed(title="<a:ban:989810419050893342> Banned", color=discord.Colour.dark_gold(),
                                   timestamp=interaction.created_at,
                                   description=f"You have been **banned** from the server **{interaction.guild.name}** for the reason `{reason}`")
             embed.set_footer(text="The term ‘aurora borealis’ was coined in 1619",
                              icon_url=interaction.user.display_avatar)
             embed.set_thumbnail(
                 url="https://c.tenor.com/TbfChfHKkOUAAAAM/ban-button.gif")
-            user_channel = await member.create_dm()
-            await user_channel.send(embed=embed)
-            await member.ban(reason=reason)
-            await interaction.response.send_message(f"Successfully banned {member.mention} from the server!")
-            await asyncio.sleep(3)
-            await interaction.delete_original_message()
+
+            view = Confirm()
+            await interaction.response.send_message(embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation", description=f"**Are you sure you want to ban {member.mention} from the server?**", color=discord.Colour.blue(), timestamp=interaction.created_at), view=view)
+            await view.wait()
+
+            if view.value is None:
+                await interaction.edit_original_message(
+                    embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation timed out!",
+                                        description="**You did not click on any of the buttons hence the confirmation timed out.**",
+                                        color=discord.Colour.red(), timestamp=interaction.created_at))
+            elif view.value:
+                user_channel = await member.create_dm()
+                await user_channel.send(embed=embed)
+                await member.ban(reason=reason)
+                await interaction.edit_original_message(
+                    embed=discord.Embed(title=f"<a:ban:989810419050893342> Successfully banned {member.display_name} from the server!", description=f"**{member.mention} was banned from the server for the reason `{reason}`**", color=discord.Color.dark_orange(), timestamp=interaction.created_at))
+            else:
+                await interaction.edit_original_message(
+                    embed=discord.Embed(title="<:wrong:773145931973525514> Operation cancelled!",
+                                        description=f"**Operation has been cancelled by {interaction.user.mention}**",
+                                        color=discord.Color.dark_magenta(), timestamp=interaction.created_at))
         except:
             error_logger.error(f"Error occurred while running ban command:- ", exc_info=True)
 
@@ -79,13 +122,34 @@ class Admin(commands.Cog):
         member="The member to unban. Either give ID or complete username with discriminator(#)."
     )
     async def _unban_member(self, interaction: discord.Interaction, member: str):
-
+        view = Confirm()
         if member.isdigit():
             try:
                 try:
                     member_obj = await self.client.fetch_user(member)
-                    await interaction.guild.unban(user=member_obj)
-                    await interaction.response.send_message(f"Successfully unbanned **{member_obj}**!")
+                    await interaction.response.send_message(
+                        embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation",
+                                            description=f"**Are you sure you want to unban {member_obj} from the server?**",
+                                            color=discord.Colour.blue(), timestamp=interaction.created_at), view=view)
+                    await view.wait()
+
+                    if view.value is None:
+                        await interaction.edit_original_message(
+                            embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation timed out!",
+                                                description="**You did not click on any of the buttons hence the confirmation timed out.**",
+                                                color=discord.Colour.red(), timestamp=interaction.created_at))
+                    elif view.value:
+                        await interaction.guild.unban(user=member_obj)
+                        await interaction.edit_original_message(
+                            embed=discord.Embed(
+                                title=f"<:unban:993685577834700861> Successfully unbanned {member_obj} from the server!",
+                                description=f"**{member_obj} was unbanned from the server!**",
+                                color=discord.Color.dark_orange(), timestamp=interaction.created_at))
+                    else:
+                        await interaction.edit_original_message(
+                            embed=discord.Embed(title="<:wrong:773145931973525514> Operation cancelled!",
+                                                description=f"**Operation has been cancelled by {interaction.user.mention}**",
+                                                color=discord.Color.dark_magenta(), timestamp=interaction.created_at))
                 except discord.NotFound:
                     await interaction.response.send_message(
                         f"User with id {member} was not found in the banned entries.")
@@ -100,8 +164,31 @@ class Admin(commands.Cog):
                 async for ban_entry in banned_users:
                     user = ban_entry.user
                     if (user.name, user.discriminator) == (member_name, member_discriminator):
-                        await interaction.guild.unban(user=user)
-                        await interaction.response.send_message(f"Successfully unbanned **{member}**!")
+                        await interaction.response.send_message(
+                            embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation",
+                                                description=f"**Are you sure you want to unban {member} from the server?**",
+                                                color=discord.Colour.blue(), timestamp=interaction.created_at),
+                            view=view)
+                        await view.wait()
+
+                        if view.value is None:
+                            await interaction.edit_original_message(
+                                embed=discord.Embed(title="<:pandacop:831800704372178944> Confirmation timed out!",
+                                                    description="**You did not click on any of the buttons hence the confirmation timed out.**",
+                                                    color=discord.Colour.red(), timestamp=interaction.created_at))
+                        elif view.value:
+                            await interaction.guild.unban(user=user)
+                            await interaction.edit_original_message(
+                                embed=discord.Embed(
+                                    title=f"<:unban:993685577834700861> Successfully unbanned {member} from the server!",
+                                    description=f"**{member} was unbanned from the server!**",
+                                    color=discord.Color.dark_orange(), timestamp=interaction.created_at))
+                        else:
+                            await interaction.edit_original_message(
+                                embed=discord.Embed(title="<:wrong:773145931973525514> Operation cancelled!",
+                                                    description=f"**Operation has been cancelled by {interaction.user.mention}**",
+                                                    color=discord.Color.dark_magenta(),
+                                                    timestamp=interaction.created_at))
             except:
                 error_logger.error(f"Error occurred while running unban command[STRING_INPUT]:- ", exc_info=True)
 
