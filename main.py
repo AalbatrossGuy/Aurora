@@ -14,7 +14,6 @@ TEST_GUILD = discord.Object(id=config["Aurora"]["TEST_GUILD"])
 handler = logging.FileHandler(filename="logs/info.log", encoding="utf-8", mode="w")
 
 intents = discord.Intents.default()
-intents.members = True
 intents.message_content = True
 client = commands.AutoShardedBot(command_prefix="!", case_insensitive=True, intents=intents)
 
