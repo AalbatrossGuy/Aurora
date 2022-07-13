@@ -1,6 +1,6 @@
 {
   "Aurora" : {
-    "TOKEN" : "your-token-here",
+    "TOKEN" : "OTUzODI4MjIyODkyNjcwOTg3.YjKPwQ.SSZpKXBVTwcAMaHB7X3ggvNaHQE",
     "VERSION" : "v0.1",
     "TEST_GUILD" : "903225083072495646",
     "DEVELOPERS" : [
@@ -23,5 +23,9 @@
     "SHORT_DESCRIPTION" : "Aurora is a multipurpose bot made to make your everyday usage of Discord easier.",
     "LONG_DESCRIPTION" : "N/A",
     "LICENSE" : "MIT License Copyright (c) 2022 AalbatrossGuy"
+  },
+  "API_KEYS": {
+    "MOVIE_API" : "",
+    "MOVIE_API_READ" : ""
   }
 }
