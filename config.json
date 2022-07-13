@@ -1,6 +1,6 @@
 {
   "Aurora" : {
-    "TOKEN" : "",
+    "TOKEN" : "your-token-here",
     "VERSION" : "v0.1",
     "TEST_GUILD" : "903225083072495646",
     "DEVELOPERS" : [
@@ -25,7 +25,7 @@
     "LICENSE" : "MIT License Copyright (c) 2022 AalbatrossGuy"
   },
   "API_KEYS": {
-    "MOVIE_API" : "",
-    "MOVIE_API_READ" : ""
+    "MOVIE_API" : "your-token-here",
+    "MOVIE_API_READ" : "your-token-here"
   }
 }
