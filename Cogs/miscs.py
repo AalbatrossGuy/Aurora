@@ -75,7 +75,7 @@ class Miscs(commands.Cog):
             lst = []
             for keys, values in permissions.items():
                 if values:
-                    lst.append(f"• 2{keys}")
+                    lst.append(f"• {keys}")
                 else:
                     continue
 
