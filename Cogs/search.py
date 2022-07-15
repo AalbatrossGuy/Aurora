@@ -339,7 +339,7 @@ class Search(commands.GroupCog, name="search"):
         except TypeError:
             rr = None
         rr = f"**TOP** {rr:,}" if rr is not None else None
-        embed.add_field(name="⏲️ Duration", value=f"{search[0].episode_length} mins", inline=False)
+        embed.add_field(name="⏲️ Duration", value=f"{search[0].episode_length} minutes", inline=False)
         embed.add_field(name="<a:status:912965228893978634> Status", value=search[0].status, inline=True)
         embed.add_field(name="<a:rating:912929196253257778> Rating", value=rr, inline=True)
         embed.set_image(url=search[0].poster_image(_type="large"))
