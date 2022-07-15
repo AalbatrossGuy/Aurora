@@ -1,5 +1,4 @@
 from datetime import timezone
-from typing import Tuple, Any
 
 import discord, aiohttp, json, kitsu
 from discord import app_commands
