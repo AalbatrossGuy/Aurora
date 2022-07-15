@@ -25,6 +25,7 @@
     "LICENSE" : "MIT License Copyright (c) 2022 AalbatrossGuy"
   },
   "API_KEYS": {
+    "DAGPI_KEY" : "your-token-here",
     "MOVIE_API" : "your-token-here",
     "MOVIE_API_READ" : "your-token-here"
   }
