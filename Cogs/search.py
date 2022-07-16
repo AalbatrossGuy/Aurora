@@ -186,14 +186,20 @@ class ControlsAnime(discord.ui.View):
             synopsis = search[self.counter].synopsis or "N/A"
             anime_type = search[self.counter].subtype or "N/A"
             episode_count = search[self.counter].episode_count or "N/A"
-            start_date = int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp()) or "N/A"
-            end_date = int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp()) or "N/A"
+            try:
+                start_date = f"<t:{int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp())}:F>(<t:{int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp())}:R>)"
+            except AttributeError:
+                start_date = "N/A"
+            try:
+                end_date = f"<t:{int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp())}:F>(<t:{int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp())}:R>)"
+            except AttributeError:
+                end_date = "N/A"
             try:
                 rating_rank = search[self.counter].rating_rank
             except TypeError:
                 rating_rank = None
             rating_rank = f"**TOP** {rating_rank:,}" if rating_rank is not None else None
-            duration = f"{search[self.counter].episode_length // 60} hour(s) and {search[self.counter].episode_length % 60} minutes" or "N/A"
+            duration = f"{search[self.counter].episode_length // 60} hour(s) and {search[self.counter].episode_length % 60} minutes" if search[self.counter].episode_length is not None else "N/A"
             poster_image = search[self.counter].poster_image(_type="large") or "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png"
             status = search[self.counter].status or "N/A"
             embed = discord.Embed(title=title, timestamp=interaction.created_at, color=discord.Color.blurple(),
@@ -201,9 +207,9 @@ class ControlsAnime(discord.ui.View):
             embed.add_field(name='❓ Type', value=anime_type)
             embed.add_field(name='💽 Episodes', value=episode_count, inline=True)
             embed.add_field(name='<a:time:906880876451876875> Start Date',
-                            value=f'<t:{start_date}:F>(<t:{start_date}:R>)',
+                            value=start_date,
                             inline=False)
-            embed.add_field(name="<a:time:906880876451876875> End Date", value=f"<t:{end_date}:F>(<t:{end_date}:R>)",
+            embed.add_field(name="<a:time:906880876451876875> End Date", value=end_date,
                             inline=True)
             embed.add_field(name="⏲️ Duration", value=duration, inline=False)
             embed.add_field(name="<a:status:912965228893978634> Status", value=status, inline=True)
@@ -238,8 +244,14 @@ class ControlsAnime(discord.ui.View):
             synopsis = search[self.counter].synopsis
             anime_type = search[self.counter].subtype or "N/A"
             episode_count = search[self.counter].episode_count or "N/A"
-            start_date = int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp()) or "N/A"
-            end_date = int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp()) or "N/A"
+            try:
+                start_date = f"<t:{int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp())}:F>(<t:{int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp())}:R>)"
+            except AttributeError:
+                start_date = "N/A"
+            try:
+                end_date = f"<t:{int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp())}:F>(<t:{int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp())}:R>)"
+            except AttributeError:
+                end_date = "N/A"
             try:
                 rating_rank = search[self.counter].rating_rank
             except TypeError:
@@ -253,9 +265,9 @@ class ControlsAnime(discord.ui.View):
             embed.add_field(name='❓ Type', value=anime_type)
             embed.add_field(name='💽 Episodes', value=episode_count, inline=True)
             embed.add_field(name='<a:time:906880876451876875> Start Date',
-                            value=f'<t:{start_date}:F>(<t:{start_date}:R>)',
+                            value=start_date,
                             inline=False)
-            embed.add_field(name="<a:time:906880876451876875> End Date", value=f"<t:{end_date}:F>(<t:{end_date}:R>)",
+            embed.add_field(name="<a:time:906880876451876875> End Date", value=end_date,
                             inline=True)
             embed.add_field(name="⏲️ Duration", value=duration, inline=False)
             embed.add_field(name="<a:status:912965228893978634> Status", value=status, inline=True)
