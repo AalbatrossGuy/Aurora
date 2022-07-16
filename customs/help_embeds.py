@@ -24,4 +24,17 @@ embedSettings.add_field(name="• Coming Soon...", value="Coming soon...")
 embedUtility = discord.Embed(title="<:utilitywhat:992784837205311498> Utility Category", color=discord.Colour.dark_teal())
 embedUtility.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
 embedUtility.add_field(name="• `avatar [member]`", value="Shows the avatar of the member mentioned. If nothing is provided, the avatar of the author is shown.", inline=False)
-embedUtility.add_field(name="• Coming Soon...", value="Coming soon ...")
+embedUtility.add_field(name="• meminfo [member]", value="Shows information of the member from the current guild. If nothing is provided, the information of the author is shown.", inline=False)
+
+# IMAGE EMBED
+embedImage = discord.Embed(title="<:photo:995519248006905896> Image Category", color=discord.Color.dark_magenta())
+embedImage.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
+embedImage.add_field(name="• b_w [member] [attachment]", value="Gives a black and white version of the [member]'s avatar or the image given as an [attachment].", inline=False)
+embedImage.add_field(name="• negative [member] [attachment]", value="Gives an inverted version of the [member]'s avatar or the image given as an [attachment].", inline=False)
+embedImage.add_field(name="• pixel [member] [attachment]", value="Gives a pixelated version of the [member]'s avatar or the image given as an [attachment].", inline=False)
+
+# SEARCH EMBED
+embedSearch = discord.Embed(title="<:search:997798789354107030> Search Category", color=discord.Color.green())
+embedSearch.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
+embedSearch.add_field(name="• movie <query>", value="Gives information related to a movie, i.e., the <query>", inline=False)
+embedSearch.add_field(name="• anime <query>", value="Gives information related to an anime, i.e., the <query>", inline=False)

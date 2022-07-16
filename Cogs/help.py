@@ -2,7 +2,7 @@ import discord, json
 from discord.ext import commands
 from discord import app_commands
 from customs.log import AuroraLogger
-from customs.help_embeds import embedModeration, embedSettings, embedUtility
+from customs.help_embeds import embedModeration, embedSettings, embedUtility, embedImage, embedSearch
 
 # LOGGER
 error_logger = AuroraLogger("AuroraErrorLog", "logs/errors.log")
@@ -47,7 +47,10 @@ class HelpSelect(discord.ui.Select):
             discord.SelectOption(label="Moderation", description="clear, ban, kick, etc.",
                                  emoji="<:mod:992770697921310780>"),
             discord.SelectOption(label="Settings", description="about, etc.", emoji="<:settings:957629477087760436>"),
-            discord.SelectOption(label="Utility", description="avatar, etc.", emoji="<:utilitywhat:992784837205311498>")
+            discord.SelectOption(label="Utility", description="avatar, meminfo, etc.",
+                                 emoji="<:utilitywhat:992784837205311498>"),
+            discord.SelectOption(label="Image", description="b_w, negative, etc.", emoji="<:photo:995519248006905896>"),
+            discord.SelectOption(label="Search", description="anime, movie, etc.", emoji="<:search:997798789354107030>")
         ]
         super().__init__(placeholder="Select a Help Category", max_values=1, options=options)
 
@@ -60,6 +63,12 @@ class HelpSelect(discord.ui.Select):
 
         if self.values[0].lower() == "utility":
             await interaction.response.edit_message(embed=embedUtility)
+
+        if self.values[0].lower() == "image":
+            await interaction.response.edit_message(embed=embedImage)
+
+        if self.values[0].lower() == "search":
+            await interaction.response.edit_message(embed=embedSearch)
 
 
 class HelpButton(discord.ui.Button):
@@ -93,6 +102,8 @@ class AuroraHelp(commands.Cog):
                 embed.add_field(name="<:mod:992770697921310780> Moderation", value="`/help moderation`")
                 embed.add_field(name="<:settings:957629477087760436> Settings", value="`/help settings`")
                 embed.add_field(name="<:utilitywhat:992784837205311498> Utility", value="`/help utility`")
+                embed.add_field(name="<:photo:995519248006905896> Image", value="`/help image`")
+                embed.add_field(name="<:search:997798789354107030> Search", value="`/help search`")
 
                 await interaction.response.send_message(embed=embed, view=view)
 
@@ -104,6 +115,12 @@ class AuroraHelp(commands.Cog):
 
             elif category.lower() == "utility":
                 await interaction.response.send_message(embed=embedUtility, view=onlyButtons)
+
+            elif category.lower() == "image":
+                await interaction.response.send_message(embed=embedImage, view=onlyButtons)
+
+            elif category.lower() == "search":
+                await interaction.response.send_message(embed=embedSearch, view=onlyButtons)
 
         except:
             error_logger.error("Error occurred while running help command:- ", exc_info=True)
