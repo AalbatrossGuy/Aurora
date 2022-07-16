@@ -52,7 +52,7 @@ class Settings(commands.Cog):
 
             embed.add_field(name="<:python:911833219056402504> Python version", value=python_version(), inline=True)
             embed.add_field(name="<:dpy:911833820028883014> discord.py version", value=discord.__version__, inline=True)
-            embed.add_field(name="<:time:959328643987959818> Uptime", value=f"<t:{int(get_uptime().timestamp())}:R>",
+            embed.add_field(name="<a:mcclock:995517509430161498> Uptime", value=f"<t:{int(get_uptime().timestamp())}:R>",
                             inline=True)
             embed.add_field(name="<:ram:911834876020408381> Memory usage",
                             value=f"{mem_usage:,.3f} / {mem_total:,.0f} MiB ({mem_of_total:.0f}%)", inline=True)
