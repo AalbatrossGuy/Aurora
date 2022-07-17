@@ -130,7 +130,7 @@ class ControlsMovie(discord.ui.View):
                                                                color=discord.Color.blurple(),
                                                                timestamp=interaction.created_at), view=self)
 
-    @discord.ui.button(emoji="<:chat:996799155223674922>", style=discord.ButtonStyle.grey)
+    @discord.ui.button(emoji="🔖", style=discord.ButtonStyle.grey)
     async def share_embed(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message("Sending movie info to dm...", ephemeral=True)
         data = await get_movie_info(query=self.query, family_friendly=self.nsfw_check, count=self.counter)
@@ -199,8 +199,10 @@ class ControlsAnime(discord.ui.View):
             except TypeError:
                 rating_rank = None
             rating_rank = f"**TOP** {rating_rank:,}" if rating_rank is not None else None
-            duration = f"{search[self.counter].episode_length // 60} hour(s) and {search[self.counter].episode_length % 60} minutes" if search[self.counter].episode_length is not None else "N/A"
-            poster_image = search[self.counter].poster_image(_type="large") or "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png"
+            duration = f"{search[self.counter].episode_length // 60} hour(s) and {search[self.counter].episode_length % 60} minutes" if \
+            search[self.counter].episode_length is not None else "N/A"
+            poster_image = search[self.counter].poster_image(
+                _type="large") or "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png"
             status = search[self.counter].status or "N/A"
             embed = discord.Embed(title=title, timestamp=interaction.created_at, color=discord.Color.blurple(),
                                   description=synopsis, url=f"https://kitsu.io/anime/{search[self.counter].id}")
@@ -258,7 +260,8 @@ class ControlsAnime(discord.ui.View):
                 rating_rank = None
             rating_rank = f"**TOP** {rating_rank:,}" if rating_rank is not None else None
             duration = f"{search[self.counter].episode_length // 60} hour(s) and {search[self.counter].episode_length % 60} minutes" if search[self.counter].episode_length is not None else "N/A"
-            poster_image = search[self.counter].poster_image(_type="large") or "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png"
+            poster_image = search[self.counter].poster_image(
+                _type="large") or "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png"
             status = search[self.counter].status or "N/A"
             embed = discord.Embed(title=title, timestamp=interaction.created_at, color=discord.Color.blurple(),
                                   description=synopsis, url=f"https://kitsu.io/anime/{search[self.counter].id}")
@@ -283,6 +286,49 @@ class ControlsAnime(discord.ui.View):
                                                                description="No more information has been found regarding the movie you searched for.",
                                                                color=discord.Color.blurple(),
                                                                timestamp=interaction.created_at), view=self)
+
+    @discord.ui.button(emoji="🔖", style=discord.ButtonStyle.grey)
+    async def share_embed(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_message("Sending movie info to dm...", ephemeral=True)
+        search = await self.kitsu.search_anime(self.query, limit=11)
+        title = search[self.counter].canonical_title
+        synopsis = search[self.counter].synopsis
+        anime_type = search[self.counter].subtype or "N/A"
+        episode_count = search[self.counter].episode_count or "N/A"
+        try:
+            start_date = f"<t:{int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp())}:F>(<t:{int(search[self.counter].start_date.replace(tzinfo=timezone.utc).timestamp())}:R>)"
+        except AttributeError:
+            start_date = "N/A"
+        try:
+            end_date = f"<t:{int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp())}:F>(<t:{int(search[self.counter].end_date.replace(tzinfo=timezone.utc).timestamp())}:R>)"
+        except AttributeError:
+            end_date = "N/A"
+        try:
+            rating_rank = search[self.counter].rating_rank
+        except TypeError:
+            rating_rank = None
+        rating_rank = f"**TOP** {rating_rank:,}" if rating_rank is not None else None
+        duration = f"{search[self.counter].episode_length // 60} hour(s) and {search[self.counter].episode_length % 60} minutes" if search[self.counter].episode_length is not None else "N/A"
+        poster_image = search[self.counter].poster_image(
+            _type="large") or "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/832px-No-Image-Placeholder.svg.png"
+        status = search[self.counter].status or "N/A"
+        embed = discord.Embed(title=title, timestamp=interaction.created_at, color=discord.Color.blurple(),
+                              description=synopsis, url=f"https://kitsu.io/anime/{search[self.counter].id}")
+        embed.add_field(name='❓ Type', value=anime_type)
+        embed.add_field(name='💽 Episodes', value=episode_count, inline=True)
+        embed.add_field(name='<a:time:906880876451876875> Start Date',
+                        value=start_date,
+                        inline=False)
+        embed.add_field(name="<a:time:906880876451876875> End Date", value=end_date,
+                        inline=True)
+        embed.add_field(name="⏲️ Duration", value=duration, inline=False)
+        embed.add_field(name="<a:status:912965228893978634> Status", value=status, inline=True)
+        embed.add_field(name="<a:rating:912929196253257778> Rating", value=rating_rank, inline=True)
+        embed.set_image(url=poster_image)
+        embed.set_footer(text=f"Earth isn’t the only planet with auroras • Page {self.counter}/10",
+                         icon_url=interaction.user.display_avatar)
+        user_dm = await interaction.user.create_dm()
+        await user_dm.send(embed=embed)
 
 
 class Search(commands.GroupCog, name="search"):
