@@ -51,12 +51,12 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 with BytesIO() as image_bytes:
                     image.save(image_bytes, 'jpeg')
                     image_bytes.seek(0)
-                    embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                    embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                           description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                           timestamp=interaction.created_at)
                     embed.set_image(url="attachment://black_and_white.jpeg")
                     runtime = time.time() - start_time
-                    embed.set_footer(text=f"Process took {runtime.__format__('0.2f')} sec(s) to complete",
+                    embed.set_footer(text=f"Image took {runtime.__format__('0.2f')} sec(s) to generate",
                                      icon_url=interaction.user.display_avatar)
                     file_obj = discord.File(fp=image_bytes, filename="black_and_white.jpeg")
                     await interaction.response.send_message(embed=embed, view=view, file=file_obj)
@@ -69,12 +69,12 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 with BytesIO() as image_bytes:
                     image.save(image_bytes, 'jpeg')
                     image_bytes.seek(0)
-                    embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                    embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                           description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                           timestamp=interaction.created_at)
                     embed.set_image(url="attachment://black_and_white.jpeg")
                     runtime = time.time() - start_time
-                    embed.set_footer(text=f"Process took {runtime.__format__('0.2f')} sec(s) to complete",
+                    embed.set_footer(text=f"Image took {runtime.__format__('0.2f')} sec(s) to generate",
                                      icon_url=interaction.user.display_avatar)
                     file_obj = discord.File(fp=image_bytes, filename="black_and_white.jpeg")
                     await interaction.response.send_message(embed=embed, view=view, file=file_obj)
@@ -88,12 +88,12 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 with BytesIO() as image_bytes:
                     image.save(image_bytes, 'jpeg')
                     image_bytes.seek(0)
-                    embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                    embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                           description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                           timestamp=interaction.created_at)
                     embed.set_image(url="attachment://black_and_white.jpeg")
                     runtime = time.time() - start_time
-                    embed.set_footer(text=f"Process took {runtime.__format__('0.2f')} sec(s) to complete",
+                    embed.set_footer(text=f"Image took {runtime.__format__('0.2f')} sec(s) to generate",
                                      icon_url=interaction.user.display_avatar)
                     file_obj = discord.File(fp=image_bytes, filename="black_and_white.jpeg")
                     await interaction.response.send_message(embed=embed, view=view, file=file_obj)
@@ -120,11 +120,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.invert(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://negative.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"negative.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -133,11 +133,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.invert(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://negative.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"negative.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -147,11 +147,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.invert(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://negative.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"negative.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -178,11 +178,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.pixel(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://pixel.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"pixel.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -191,11 +191,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.pixel(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://pixel.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"pixel.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -205,11 +205,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.pixel(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://pixel.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"pixel.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -236,11 +236,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.colors(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://colors.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"colors.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -249,11 +249,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.colors(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://colors.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"colors.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -263,11 +263,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.colors(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://colors.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"colors.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -294,11 +294,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.triggered(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://triggered.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"triggered.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -307,11 +307,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.triggered(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://triggered.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"triggered.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -321,11 +321,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.triggered(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://negative.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"triggered.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -352,11 +352,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.expand(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://expand.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"expand.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -365,11 +365,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.expand(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://expand.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"expand.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -379,11 +379,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.expand(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://expand.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"expand.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -410,11 +410,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.wasted(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://wasted.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"wasted.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -423,11 +423,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.wasted(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://wasted.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"wasted.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -437,11 +437,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.wasted(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://wasted.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"wasted.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -468,11 +468,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.petpet(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://petpat.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"petpat.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -481,11 +481,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.petpet(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://petpat.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"petpat.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -495,11 +495,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.petpet(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://petpat.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"petpat.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -526,11 +526,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.bonk(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://bonk.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"bonk.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -539,11 +539,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.bonk(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://bonk.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"bonk.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -553,11 +553,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.bonk(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://bonk.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"bonk.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -584,11 +584,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.hog(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://hog.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"hog.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -597,11 +597,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.hog(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://hog.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"hog.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -611,11 +611,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.hog(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://hog.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"hog.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -648,12 +648,12 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 with BytesIO() as image_bytes:
                     blurred_image.save(image_bytes, 'jpeg')
                     image_bytes.seek(0)
-                    embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                    embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                           description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                           timestamp=interaction.created_at)
                     embed.set_image(url=f"attachment://blur.jpeg")
                     runtime = time.time() - start_time
-                    embed.set_footer(text=f"Process took {runtime.__format__('0.2f')} sec(s) to complete",
+                    embed.set_footer(text=f"Image took {runtime.__format__('0.2f')} sec(s) to generate",
                                      icon_url=interaction.user.display_avatar)
                     file_obj = discord.File(fp=image_bytes, filename=f"blur.jpeg")
 
@@ -668,12 +668,12 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 with BytesIO() as image_bytes:
                     blurred_image.save(image_bytes, 'jpeg')
                     image_bytes.seek(0)
-                    embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                    embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                           description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                           timestamp=interaction.created_at)
                     embed.set_image(url=f"attachment://blur.jpeg")
                     runtime = time.time() - start_time
-                    embed.set_footer(text=f"Process took {runtime.__format__('0.2f')} sec(s) to complete",
+                    embed.set_footer(text=f"Image took {runtime.__format__('0.2f')} sec(s) to generate",
                                      icon_url=interaction.user.display_avatar)
                     file_obj = discord.File(fp=image_bytes, filename=f"blur.jpeg")
 
@@ -689,12 +689,12 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 with BytesIO() as image_bytes:
                     blurred_image.save(image_bytes, 'jpeg')
                     image_bytes.seek(0)
-                    embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                    embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                           description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                           timestamp=interaction.created_at)
                     embed.set_image(url=f"attachment://blur.jpeg")
                     runtime = time.time() - start_time
-                    embed.set_footer(text=f"Process took {runtime.__format__('0.2f')} sec(s) to complete",
+                    embed.set_footer(text=f"Image took {runtime.__format__('0.2f')} sec(s) to generate",
                                      icon_url=interaction.user.display_avatar)
                     file_obj = discord.File(fp=image_bytes, filename=f"blur.jpeg")
 
@@ -722,11 +722,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.rgb(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://rgb.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"rgb.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -735,11 +735,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.rgb(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://rgb.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"rgb.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -749,11 +749,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.rgb(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://rgb.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"rgb.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -780,11 +780,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.lego(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://lego.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"lego.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -793,11 +793,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.lego(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://lego.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"lego.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -807,11 +807,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.lego(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://lego.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"lego.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -838,11 +838,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.album(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://album.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"album.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -851,11 +851,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 image_url = attachment.url
                 img = await self.dagpi.image_process(ImageFeatures.album(), url=str(image_url))
                 image = Image.open(requests.get(url=str(image_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> <:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://album.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"album.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
@@ -865,11 +865,11 @@ class ImageManipulation(commands.GroupCog, name="image"):
                 avatar_url = member.avatar.with_format('jpeg')
                 img = await self.dagpi.image_process(ImageFeatures.album(), url=str(avatar_url))
                 image = Image.open(requests.get(url=str(avatar_url), stream=True).raw)
-                embed = discord.Embed(title="Formatted Image", color=discord.Color.blurple(),
+                embed = discord.Embed(title="<:photo:995519248006905896> Formatted Image", color=discord.Color.blurple(),
                                       description=f"*Height - {image.height} px\nWidth - {image.width} px*",
                                       timestamp=interaction.created_at)
                 embed.set_image(url=f"attachment://album.{img.format}")
-                embed.set_footer(text=f"Process took {img.process_time} sec(s) to complete",
+                embed.set_footer(text=f"Image took {img.process_time} sec(s) to generate",
                                  icon_url=interaction.user.display_avatar)
                 file_obj = discord.File(fp=img.image, filename=f"album.{img.format}")
                 await interaction.followup.send(embed=embed, file=file_obj, view=view)
