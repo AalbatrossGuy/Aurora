@@ -1,3 +1,4 @@
+import random
 from datetime import timezone
 
 import discord, aiohttp, json, kitsu
@@ -403,6 +404,59 @@ class Search(commands.GroupCog, name="search"):
         embed.set_footer(text="Earth isn’t the only planet with auroras • Page 0/10",
                          icon_url=interaction.user.display_avatar)
         await interaction.response.send_message(embed=embed, view=view)
+
+    @app_commands.command(name='weather', description="The weather details of a ceratin place")
+    @app_commands.describe(
+        location="The place whose weather information you want"
+    )
+    async def weather_details(self, interaction: discord.Interaction, location: str):
+        try:
+            url = f"http://api.openweathermap.org/data/2.5/weather?appid=77f5585dd715ec1e39ba87b818b44498&q={location}"
+
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as data:
+                    data = await data.json()
+                    try:
+                        longitude = data['coord']['lon']
+                        latitude = data['coord']['lat']
+                        cloud_type = data['weather'][0]['description']
+                        temp = data['main']['temp']
+                        feels_like = data['main']['feels_like']
+                        temp = (temp - 273.15).__format__('0.2f')
+                        feels_like = (feels_like - 273.15).__format__('0.2f')
+                        min_temp = data['main']['temp_min']
+                        min_temp = (min_temp - 273.15).__format__('0.2f')
+                        max_temp = data['main']['temp_max']
+                        max_temp = (max_temp - 273.15).__format__('0.2f')
+                        pressure = data['main']['pressure']
+                        humidity = data['main']['humidity']
+                        wind_speed = data['wind']['speed']
+                        country = data['sys']['country']
+                        city_name = data['name']
+                    except KeyError:
+                        await interaction.response.send_message("<:hellno:871582891585437759> Please provide a valid location.")
+            emojis = ["⛅", "🌩️", "🌧️", "🌨️", "⛈️", "🌦️", "🌤️"]
+            embed = discord.Embed(title=f"{random.choice(emojis)} {city_name}'s Weather Info", timestamp=interaction.created_at,
+                                  color=discord.Color.blurple())
+            embed.set_footer(text="Northern And Southern Lights Might Not Be Symmetrical", icon_url=interaction.user.display_avatar)
+            embed.set_thumbnail(url="https://i.pinimg.com/originals/e7/7a/60/e77a6068aa8bb2731e3b6d835c09c84c.gif")
+
+            # content
+            embed.add_field(name="City", value=city_name)
+            embed.add_field(name="Country", value=country)
+            embed.add_field(name="Longitude", value=longitude)
+            embed.add_field(name="Latitude", value=latitude)
+            embed.add_field(name="Cloud Type", value=cloud_type)
+            embed.add_field(name="Temperature", value=f"{temp}℃")
+            embed.add_field(name="Feels Like", value=f"{feels_like}℃")
+            embed.add_field(name="Minimum Temp", value=f"{min_temp}℃")
+            embed.add_field(name="Maximum Temp", value=f"{max_temp}℃")
+            embed.add_field(name="Pressure", value=f"{pressure}hPa")
+            embed.add_field(name="Wind Speed", value=f"{wind_speed}m/s")
+            embed.add_field(name="Humidity", value=f"{humidity}%")
+            await interaction.response.send_message(embed=embed)
+        except:
+            error_logger.error("An error occurred while running weather command:- ", exc_info=True)
 
 
 async def setup(client):
