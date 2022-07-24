@@ -17,6 +17,7 @@ class AuroraDatabase:
 
     async def create_conn(self):
         self._pool = await asyncpg.create_pool(database=self._db, user=self._user, password=self._password)
+        print("connected")
         db_logger.info(f"Successfully connected to database {self._db}")
         await self._create_tables()
 
@@ -36,7 +37,9 @@ class AuroraDatabase:
         return await self._pool.fetchval(*args, **kwargs)
 
     async def _create_tables(self) -> None:
-        # Create required Tables
-        # await self.execute()
-        pass
-
+        # query = """CREATE TABLE IF NOT EXISTS disable_categories(
+        #     guild_id integer PRIMARY KEY NOT NULL UNIQUE,
+        #     disabled_extensions text[]
+        # )"""
+        query = None
+        await self.execute(query)
