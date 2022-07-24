@@ -83,7 +83,7 @@ async def show_latency(interaction: discord.Interaction):
                          icon_url=interaction.user.display_avatar)
         embed.set_thumbnail(
             url="https://64.media.tumblr.com/be43242341a7be9d50bb2ff8965abf61/tumblr_o1ximcnp1I1qf84u9o1_1280.gif")
-        await interaction.followup.send(embed=embed)
+        await interaction.response.send_message(embed=embed)
     except:
         error_logger.error("An error occurred while running the ping command:- ", exc_info=True)
 
