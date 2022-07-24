@@ -20,7 +20,11 @@ database = AuroraDatabase("Aurora", "postgres", "password")
 
 intents = discord.Intents.default()
 intents.message_content = True
-client = commands.AutoShardedBot(command_prefix="!", case_insensitive=True, intents=intents, database=database)
+intents.presences = True
+intents.members = True
+client = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!"), case_insensitive=True, intents=intents,
+                                 database=database)
+client.remove_command("help")
 
 
 @client.command(name="sync")
@@ -54,6 +58,15 @@ async def sync(ctx: commands.Context, guilds: commands.Greedy[discord.Object],
         await ctx.send(f"Synced the tree to {fmt}/{len(guilds)} guilds.")
     except:
         error_logger.error("Error occurred while executing !sync:- ", exc_info=True)
+
+
+@client.command(name="help")
+async def send_default_msg(ctx: commands.Context):
+    try:
+        embed = discord.Embed(title="⚠️ Important", description="Aurora is a complete slash commands bot. Please use `/help` to get more info about Aurora's commands.", timestamp=ctx.message.created_at, color=discord.Color.blurple())
+        await ctx.reply(embed=embed)
+    except:
+        error_logger.error("An error occurred while running the help[MESSAGE]:- ", exc_info=True)
 
 
 @client.tree.command(name="ping", description="Shows the websocket latency and database latency.")
@@ -107,6 +120,6 @@ async def main():
 client.tree.copy_global_to(guild=TEST_GUILD)
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(database.create_conn())
+    # loop = asyncio.get_event_loop()
+    # loop.run_until_complete(database.create_conn())
     asyncio.run(main())
