@@ -26,7 +26,7 @@ class RightButton(discord.ui.View):
     @discord.ui.button(emoji="<:right:912268383179919360>", style=discord.ButtonStyle.blurple)
     async def next(self, interaction: discord.Interaction, button: discord.ui.Button):
         self.counter += 1
-        if self.counter == 3:
+        if self.counter == 10:
             button.disabled = True
             await interaction.message.edit(view=self)
         await interaction.response.defer()
