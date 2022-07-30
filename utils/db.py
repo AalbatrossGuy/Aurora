@@ -17,11 +17,11 @@ class AuroraDatabase:
 
     async def create_conn(self):
         self._pool = await asyncpg.create_pool(database=self._db, user=self._user, password=self._password)
-        print("connected")
+        # print("connected")
         db_logger.info(f"Successfully connected to database {self._db}")
         await self._create_tables()
 
-    async def execute(self, *args, **kwargs) -> None:
+    async def execute(self, *args, **kwargs) -> str:
         return await self._pool.execute(*args, **kwargs)
 
     async def executemany(self, *args, **kwargs) -> None:
@@ -37,9 +37,8 @@ class AuroraDatabase:
         return await self._pool.fetchval(*args, **kwargs)
 
     async def _create_tables(self) -> None:
-        # query = """CREATE TABLE IF NOT EXISTS disable_categories(
-        #     guild_id integer PRIMARY KEY NOT NULL UNIQUE,
-        #     disabled_extensions text[]
-        # )"""
-        query = None
+        query = """CREATE TABLE IF NOT EXISTS todo(
+            user_id integer PRIMARY KEY NOT NULL UNIQUE,
+            task text[]
+        )"""
         await self.execute(query)
