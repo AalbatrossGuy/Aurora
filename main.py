@@ -22,9 +22,10 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.presences = True
 intents.members = True
-client = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!"), case_insensitive=True, intents=intents,
-                                 database=database)
+client = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or("!"), case_insensitive=True, intents=intents)
 client.remove_command("help")
+
+client.database = database
 
 
 @client.command(name="sync")
@@ -63,7 +64,9 @@ async def sync(ctx: commands.Context, guilds: commands.Greedy[discord.Object],
 @client.command(name="help")
 async def send_default_msg(ctx: commands.Context):
     try:
-        embed = discord.Embed(title="⚠️ Important", description="Aurora is a complete slash commands bot. Please use `/help` to get more info about Aurora's commands.", timestamp=ctx.message.created_at, color=discord.Color.blurple())
+        embed = discord.Embed(title="⚠️ Important",
+                              description="Aurora is a complete slash commands bot. Please use `/help` to get more info about Aurora's commands.",
+                              timestamp=ctx.message.created_at, color=discord.Color.blurple())
         await ctx.reply(embed=embed)
     except:
         error_logger.error("An error occurred while running the help[MESSAGE]:- ", exc_info=True)
@@ -77,8 +80,6 @@ async def show_latency(interaction: discord.Interaction):
         embed = discord.Embed(title=":ping_pong: Aurora's Latency", color=discord.Colour.dark_gold(),
                               timestamp=interaction.created_at)
         embed.add_field(name=":green_heart: WS Ping", value=f"```py\n{round(client.latency * 1000)} ms```")
-        # image_api_ping = await dagpi.image_ping()
-        # embed.add_field(name="🧡 Image API Ping", value=f"```py\n{round(image_api_ping)} ms```")
         embed.set_footer(text="A Norwegian scientist was the first to explain the aurora phenomenon.",
                          icon_url=interaction.user.display_avatar)
         embed.set_thumbnail(
@@ -111,6 +112,7 @@ async def main():
         except discord.LoginFailure or discord.HTTPException:
             error_logger.critical("LOGIN TO DISCORD UNSUCCESSFUL :-", exc_info=True)
             exit()
+        await client.database.create_conn()
         await client.connect()
     except Exception as e:
         if e != KeyboardInterrupt:
@@ -120,6 +122,6 @@ async def main():
 client.tree.copy_global_to(guild=TEST_GUILD)
 
 if __name__ == "__main__":
-    # loop = asyncio.get_event_loop()
-    # loop.run_until_complete(database.create_conn())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(database.create_conn())
     asyncio.run(main())
