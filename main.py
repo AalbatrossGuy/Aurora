@@ -122,6 +122,6 @@ async def main():
 client.tree.copy_global_to(guild=TEST_GUILD)
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(database.create_conn())
+    # loop = asyncio.get_event_loop()
+    # loop.run_until_complete(database.create_conn())
     asyncio.run(main())
