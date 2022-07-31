@@ -2,7 +2,7 @@ import discord, json
 from discord.ext import commands
 from discord import app_commands
 from customs.log import AuroraLogger
-from customs.help_embeds import embedModeration, embedSettings, embedUtility, embedImage, embedSearch
+from customs.help_embeds import embedModeration, embedSettings, embedUtility, embedImage, embedSearch, embedMiscs, embedTodo
 
 # LOGGER
 error_logger = AuroraLogger("AuroraErrorLog", "logs/errors.log")
@@ -50,7 +50,9 @@ class HelpSelect(discord.ui.Select):
             discord.SelectOption(label="Utility", description="avatar, meminfo, etc.",
                                  emoji="<:utilitywhat:992784837205311498>"),
             discord.SelectOption(label="Image", description="b_w, negative, etc.", emoji="<:photo:995519248006905896>"),
-            discord.SelectOption(label="Search", description="anime, movie, etc.", emoji="<:search:997798789354107030>")
+            discord.SelectOption(label="Search", description="anime, movie, etc.", emoji="<:search:997798789354107030>"),
+            discord.SelectOption(label="Miscs", description="waifu, etc.", emoji="<:meow_sus:1003184781971963905>"),
+            discord.SelectOption(label="Todo", description="add, delete, remove, etc.", emoji="<:todo:1003109477375037500>"),
         ]
         super().__init__(placeholder="Select a Help Category", max_values=1, options=options)
 
@@ -69,6 +71,12 @@ class HelpSelect(discord.ui.Select):
 
         if self.values[0].lower() == "search":
             await interaction.response.edit_message(embed=embedSearch)
+
+        if self.values[0].lower() == "miscs":
+            await interaction.response.edit_message(embed=embedMiscs)
+
+        if self.values[0].lower() == "todo":
+            await interaction.response.edit_message(embed=embedTodo)
 
 
 class HelpButton(discord.ui.Button):
@@ -104,6 +112,8 @@ class AuroraHelp(commands.Cog):
                 embed.add_field(name="<:utilitywhat:992784837205311498> Utility", value="`/help utility`")
                 embed.add_field(name="<:photo:995519248006905896> Image", value="`/help image`")
                 embed.add_field(name="<:search:997798789354107030> Search", value="`/help search`")
+                embed.add_field(name="<:meow_sus:1003184781971963905> Miscs", value="`/help miscs`")
+                embed.add_field(name="<:todo:1003109477375037500> Todo", value="`/help todo`")
 
                 await interaction.response.send_message(embed=embed, view=view)
 
@@ -121,6 +131,12 @@ class AuroraHelp(commands.Cog):
 
             elif category.lower() == "search":
                 await interaction.response.send_message(embed=embedSearch, view=onlyButtons)
+
+            elif category.lower() == "miscs":
+                await interaction.response.send_message(embed=embedMiscs, view=onlyButtons)
+
+            elif category.lower() == "todo":
+                await interaction.response.send_message(embed=embedTodo, view=onlyButtons)
 
         except:
             error_logger.error("Error occurred while running help command:- ", exc_info=True)
