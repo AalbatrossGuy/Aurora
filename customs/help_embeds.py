@@ -25,6 +25,7 @@ embedUtility = discord.Embed(title="<:utilitywhat:992784837205311498> Utility Ca
 embedUtility.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
 embedUtility.add_field(name="• `avatar [member]`", value="Shows the avatar of the member mentioned. If nothing is provided, the avatar of the author is shown.", inline=False)
 embedUtility.add_field(name="• meminfo [member]", value="Shows information of the member from the current guild. If nothing is provided, the information of the author is shown.", inline=False)
+embedUtility.add_field(name="• spotify [member]", value="Shows the currently playing spotify song's information for a member. If nothing is provided,the information of the author is shown.", inline=False)
 
 # IMAGE EMBED
 embedImage = discord.Embed(title="<:photo:995519248006905896> Image Category", color=discord.Color.dark_magenta())
@@ -50,3 +51,17 @@ embedSearch = discord.Embed(title="<:search:997798789354107030> Search Category"
 embedSearch.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
 embedSearch.add_field(name="• movie <query>", value="Gives information related to a movie, i.e., the <query>", inline=False)
 embedSearch.add_field(name="• anime <query>", value="Gives information related to an anime, i.e., the <query>", inline=False)
+embedSearch.add_field(name="• weather <location>", value="Shows the weather information for a place.", inline=False)
+
+embedMiscs = discord.Embed(title="<:meow_sus:1003184781971963905> Miscs Category", color=discord.Color.brand_red())
+embedMiscs.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
+embedMiscs.add_field(name="• waifu", value="Shows random waifu.", inline=False)
+embedMiscs.add_field(name="• coming soon...", value="coming soon...", inline=False)
+
+
+embedTodo = discord.Embed(title="<:todo:1003109477375037500> Todo Category", color=discord.Color.dark_purple())
+embedTodo.set_footer(text="<> = Required | [] = Optional", icon_url=avatar)
+embedTodo.add_field(name="• add <task>", value="Add tasks to your todo list.", inline=False)
+embedTodo.add_field(name="• remove <task_number>", value="Remove tasks from your todo list by its serial number.", inline=False)
+embedTodo.add_field(name="• view", value="View your todo list.", inline=False)
+embedTodo.add_field(name="• delete", value="Delete all your tasks from your todo list.", inline=False)
