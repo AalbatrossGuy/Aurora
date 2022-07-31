@@ -1,7 +1,7 @@
 {
   "Aurora" : {
     "TOKEN" : "your-token-here",
-    "VERSION" : "v0.1",
+    "VERSION" : "v0.2",
     "TEST_GUILD" : "903225083072495646",
     "DEVELOPERS" : [
       {
