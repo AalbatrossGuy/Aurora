@@ -39,7 +39,9 @@ class AuroraDatabase:
     async def _create_tables(self) -> None:
         # query = """CREATE TABLE IF NOT EXISTS rpg(
         #     user_id bigint PRIMARY KEY NOT NULL UNIQUE,
-        #     username text NOT NULL
+        #     username text,
+        #     base_stats JSONB,
+        #     player_data JSONB
         # )"""
         # query = """ALTER TABLE rpg ADD player_data JSONB"""
         # await self.execute(query)
