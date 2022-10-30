@@ -1,9 +1,9 @@
-import discord, json, re, time
+import discord, json, re, time, random
 from discord.ext import commands
 from discord import app_commands
 from customs.log import AuroraLogger
 from customs.rpg.entity import Player, Spider, PlayerData
-
+from typing import Any
 err_log = AuroraLogger("AuroraErrorLog", "logs/errors.log")
 
 
@@ -31,7 +31,8 @@ class RPG(commands.GroupCog, name="rpg"):
                         values: tuple = (interaction.user.id, player_name, new_player, json.dumps(PlayerData(0).raw()))
                         print('got values')
                         await self.client.database.execute(
-                            "INSERT INTO rpg(user_id, username, base_stats, player_data) VALUES ($1, $2, $3, $4)", values[0], values[1],
+                            "INSERT INTO rpg(user_id, username, base_stats, player_data) VALUES ($1, $2, $3, $4)",
+                            values[0], values[1],
                             values[2], values[3])
                         print('executed')
                         embed = discord.Embed(title=f"Welcome to (Name of the Game)",
@@ -96,13 +97,35 @@ class RPG(commands.GroupCog, name="rpg"):
     async def navigation(self, interaction: discord.Interaction):
         start = time.time()
         try:
-            # await interaction.response.send_message("Cooldown test")
-            get_player = await self.client.database.fetch_row("SELECT username FROM rpg WHERE user_id = $1", interaction.user.id)
+            get_player = await self.client.database.fetch_row("SELECT username FROM rpg WHERE user_id = $1",
+                                                              interaction.user.id)
 
             if get_player is not None:
-                player_data = await self.client.database.fetch_row("SELECT player_data FROM rpg WHERE user_id = $1", interaction.user.id)
+                player_data = await self.client.database.fetch_row("SELECT player_data FROM rpg WHERE user_id = $1",
+                                                                   interaction.user.id)
+                base_stats = await self.client.database.fetch_row("SELECT base_stats FROM rpg WHERE user_id = $1", interaction.user.id)
+                player_data = json.loads(player_data[0])
+                player_name = json.loads(base_stats[0])["name"]
+                curr_player_pos = player_data["curr_pos"]
+                direction_choice: Any = None
+                if curr_player_pos == 0:
+                    direction_choice = random.choice(["north", "south"])
+                if direction_choice == "north" or curr_player_pos > 0:
+                    curr_player_pos += 12
+                if direction_choice == "south" or curr_player_pos < 0:
+                    curr_player_pos -= 12
+                player_data["curr_pos"] = curr_player_pos
+                await self.client.database.execute("UPDATE rpg set player_data = $1 WHERE user_id = $2", json.dumps(player_data), interaction.user.id)
+
+                # RESETTING PLAYER POSITION
+                # player_data["curr_pos"] = 0
+                # await self.client.database.execute("UPDATE rpg set player_data = $1 WHERE user_id = $2",
+                #                                    json.dumps(player_data), interaction.user.id)
                 end = time.time()
                 proc_time = (end-start).__format__('0.3f')
+                # DEBUG PURPOSES
+                player_data = await self.client.database.fetch_row("SELECT player_data FROM rpg WHERE user_id = $1",
+                                                                   interaction.user.id)
                 await interaction.response.send_message(f"Current Player Position: {json.loads(player_data[0])['curr_pos']}\nProcess finished in: `{proc_time}`s")
         except:
             err_log.error("An error occurred while running rpg[explore] command:- ", exc_info=True)
@@ -111,7 +134,8 @@ class RPG(commands.GroupCog, name="rpg"):
     async def on_test_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(error, app_commands.CommandOnCooldown):
             interval = '.'.join(re.findall(r'\d+', str(error)))
-            await interaction.response.send_message(f"❌ Hey! You've walked quite a lot. Take a breather for `{interval}s`", ephemeral=True)
+            await interaction.response.send_message(
+                f"❌ Hey! You've walked quite a lot. Take a breather for `{interval}s`", ephemeral=True)
 
 
 async def setup(client):
