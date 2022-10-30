@@ -1,8 +1,8 @@
 {
   "Aurora" : {
-    "TOKEN" : "your-token-here",
+    "TOKEN" : "OTUzODI4MjIyODkyNjcwOTg3.G3dzWo.8yxFq7rxQGICmCxHSyKRKpalJxAh0BlXmnjuZ0",
     "VERSION" : "v0.2",
-    "TEST_GUILD" : "903225083072495646",
+    "TEST_GUILD" : "1035481066024222810",
     "DEVELOPERS" : [
       {
         "DISCORD" : "AalbatrossGuy#5129",
@@ -25,8 +25,8 @@
     "LICENSE" : "MIT License Copyright (c) 2022 AalbatrossGuy"
   },
   "API_KEYS": {
-    "DAGPI_KEY" : "your-token-here",
-    "MOVIE_API" : "your-token-here",
-    "MOVIE_API_READ" : "your-token-here"
+    "DAGPI_KEY" : "MTYyMzUwMzMzMQ.876re9HvmxvFcf41LIotTu2WrHC5VNPc.edc4473be1c68f30",
+    "MOVIE_API" : "b4f5becc87666f456bcfc4267c2995e8",
+    "MOVIE_API_READ" : "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNGY1YmVjYzg3NjY2ZjQ1NmJjZmM0MjY3YzI5OTVlOCIsInN1YiI6IjYyY2FlNjk0YTkxMTdmMDA0ZjgwYjQxYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LO1MnfMtR1sDYfNUyGUu0ioqvefTn23DOBqo2z9iPZg"
   }
 }

@@ -37,8 +37,10 @@ class AuroraDatabase:
         return await self._pool.fetchval(*args, **kwargs)
 
     async def _create_tables(self) -> None:
-        query = """CREATE TABLE IF NOT EXISTS todo(
-            user_id integer PRIMARY KEY NOT NULL UNIQUE,
-            task text[]
-        )"""
-        await self.execute(query)
+        # query = """CREATE TABLE IF NOT EXISTS rpg(
+        #     user_id bigint PRIMARY KEY NOT NULL UNIQUE,
+        #     username text NOT NULL
+        # )"""
+        # query = """ALTER TABLE rpg ADD player_data JSONB"""
+        # await self.execute(query)
+        pass
